@@ -6,7 +6,7 @@ import main.MassiiviSeis;
 import java.util.Objects;
 
 public abstract class TööalaValimineVõiMuutmine extends Massiivioperatsioon {
-    public TööalaValimineVõiMuutmine(MassiiviSeis massiivEnneOperatsiooni, int uusTööalaAlgus, int uusTööalaLõpp) {
+    public TööalaValimineVõiMuutmine(int uusTööalaAlgus, int uusTööalaLõpp, MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
         this.massiivPealeOperatsiooni.setTööalaAlgusIndeks(uusTööalaAlgus);
         this.massiivPealeOperatsiooni.setTööalaleJärgnevIndeks(uusTööalaLõpp);
@@ -23,11 +23,11 @@ public abstract class TööalaValimineVõiMuutmine extends Massiivioperatsioon {
         }
 
         return Objects.equals(this.massiivPealeOperatsiooni.getTööalaAlgusIndeks(), tööalaValimineVõiMuutmine.massiivPealeOperatsiooni.getTööalaAlgusIndeks())
-                && Objects.equals(this.massiivPealeOperatsiooni.getTööalaleJärgnevIndeks(), getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks());
+                && Objects.equals(this.massiivPealeOperatsiooni.getTööalaleJärgnevIndeks(), tööalaValimineVõiMuutmine.massiivPealeOperatsiooni.getTööalaleJärgnevIndeks());
     }
 
     @Override
     public String toString() {
-        return "Tööala valimine. Uus tööala: " + this.massiivPealeOperatsiooni;
+        return "Tööala valimine "+ massiivPealeOperatsiooni.getTööalaAlgusIndeks() + ", " + massiivPealeOperatsiooni.getTööalaleJärgnevIndeks()+". Uus tööala: " + this.massiivPealeOperatsiooni;
     }
 }

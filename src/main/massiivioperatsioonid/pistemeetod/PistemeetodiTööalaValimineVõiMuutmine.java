@@ -10,8 +10,8 @@ import main.massiivioperatsioonid.TööalaValimineVõiMuutmine;
 public class PistemeetodiTööalaValimineVõiMuutmine extends TööalaValimineVõiMuutmine {
 
 
-    public PistemeetodiTööalaValimineVõiMuutmine(MassiiviSeis massiivEnneOperatsiooni, int uusTööalaAlgus, int uusTööalaLõpp) {
-        super(massiivEnneOperatsiooni, uusTööalaAlgus, uusTööalaLõpp);
+    public PistemeetodiTööalaValimineVõiMuutmine(int uusTööalaAlgus, int uusTööalaLõpp, MassiiviSeis massiivEnneOperatsiooni) {
+        super(uusTööalaAlgus, uusTööalaLõpp, massiivEnneOperatsiooni);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PistemeetodiTööalaValimineVõiMuutmine extends TööalaValimineV�
         if(this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() == this.getMassiivPealeOperatsiooni().getMassiiv().length) {
             return new LäbimänguLõpetamine(this.getMassiivPealeOperatsiooni());
         }
-        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni(), this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()+1);
+        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()+1, this.getMassiivPealeOperatsiooni());
     }
 
     @Override

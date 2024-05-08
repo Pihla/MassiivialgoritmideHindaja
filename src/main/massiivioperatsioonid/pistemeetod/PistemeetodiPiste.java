@@ -17,7 +17,7 @@ public class PistemeetodiPiste extends Piste {
         if(this.getMassiivPealeOperatsiooni().getMassiiv().length == this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()) {
             return new LäbimänguLõpetamine(this.getMassiivPealeOperatsiooni());
         }
-        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni(), this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()+1);
+        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()+1, this.getMassiivPealeOperatsiooni());
     }
 
     @Override

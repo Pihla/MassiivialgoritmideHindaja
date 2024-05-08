@@ -25,7 +25,8 @@ public abstract class LäbimänguHindaja {
             Massiivioperatsioon praeguneOperatsioon = tehtudOperatsioonid.get(i);
 
             if(!praeguneOperatsioon.equals(viimaneOperatsioon.järgmineÕigeOperatsioon())) {
-                System.out.println("VIGA oleks pidanud tegema " + viimaneOperatsioon.järgmineÕigeOperatsioon());
+                //System.out.println("VIGA oleks pidanud tegema " + viimaneOperatsioon.järgmineÕigeOperatsioon());
+                System.out.println("VIGA, olekust " + viimaneOperatsioon + " tehti " + praeguneOperatsioon + " aga oleks pidanud " + viimaneOperatsioon.järgmineÕigeOperatsioon());
 
                 if(praeguneOperatsioon.kasOnVõimalikLäbimänguJätkata()) {
                     //mitteoluline viga

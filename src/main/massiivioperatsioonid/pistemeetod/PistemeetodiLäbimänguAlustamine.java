@@ -12,7 +12,7 @@ public class PistemeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeOperatsioon() {
-        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni(), 0, 1);
+        return new PistemeetodiTööalaValimineVõiMuutmine( 0, 1, this.getMassiivPealeOperatsiooni());
     }
 
     @Override
