@@ -3,16 +3,16 @@ package main.massiivioperatsioonid;
 import main.MassiiviSeis;
 
 public abstract class Massiivioperatsioon {
-    MassiiviSeis massiivPealeOperatsiooni;
+    MassiiviSeis seis; // massiivi seis peale operatsiooni
 
-    public MassiiviSeis getMassiivPealeOperatsiooni() {
-        return massiivPealeOperatsiooni;
+    public MassiiviSeis getSeis() {
+        return seis;
     }
     public abstract Massiivioperatsioon järgmineÕigeKäik();
     public abstract boolean kasOnVõimalikLäbimänguJätkata();
 
     public Massiivioperatsioon(MassiiviSeis massiivEnneOperatsiooni) {
-        this.massiivPealeOperatsiooni = massiivEnneOperatsiooni.teeKoopia();
+        this.seis = massiivEnneOperatsiooni.teeKoopia();
     }
     @Override
     public abstract String toString();

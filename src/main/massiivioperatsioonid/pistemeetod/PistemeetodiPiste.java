@@ -14,24 +14,24 @@ public class PistemeetodiPiste extends Piste {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(getMassiivPealeOperatsiooni().getTööalaAlgusIndeks() == null || getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() == null) {
-            return new PistemeetodiTööalaValimineVõiMuutmine(0, 1, this.getMassiivPealeOperatsiooni());
+        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+            return new PistemeetodiTööalaValimine(0, 1, this.getSeis());
         }
-        if(this.getMassiivPealeOperatsiooni().getMassiiv().length == this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()) {
-            return new LäbimänguLõpetamine(this.getMassiivPealeOperatsiooni());
+        if(this.getSeis().getMassiiv().length == this.getSeis().getTööalaleJärgnevIndeks()) {
+            return new LäbimänguLõpetamine(this.getSeis());
         }
-        return new PistemeetodiTööalaValimineVõiMuutmine(this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()+1, this.getMassiivPealeOperatsiooni());
+        return new PistemeetodiTööalaValimine(this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks()+1, this.getSeis());
     }
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(getMassiivPealeOperatsiooni().getTööalaAlgusIndeks() == null || getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() == null) {
+        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
             return true;
         }
-        if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getMassiivPealeOperatsiooni().getMassiiv(), this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks())) {
+        if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
             return false;
         }
-        return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getMassiivPealeOperatsiooni().getMassiiv(), this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks(), this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks());
+        return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks());
     }
 }
 

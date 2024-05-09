@@ -4,22 +4,21 @@ package main;
 import java.util.Arrays;
 
 public class MassiiviTööriistad {
-    static int[] kopeeriJaSorteeriMassiiv(int[] massiiv) {
+    public static int tööalaVähimaElemendiVäärtus(MassiiviSeis massiiviSeis) {
+        int vähimaVäärtus = massiiviSeis.getMassiiv()[massiiviSeis.getTööalaAlgusIndeks()];
+        for (Integer i = massiiviSeis.tööalaAlgusIndeks; i < massiiviSeis.getTööalaleJärgnevIndeks(); i++) {
+            if(massiiviSeis.getMassiiv()[i] < vähimaVäärtus) {
+                vähimaVäärtus = massiiviSeis.getMassiiv()[i];
+            }
+        }
+        return vähimaVäärtus;
+    }
+    public static int[] kopeeriJaSorteeriMassiiv(int[] massiiv) {
         int[] koopiaMassiiv = Arrays.copyOf(massiiv, massiiv.length);
         Arrays.sort(koopiaMassiiv);
         return koopiaMassiiv;
     }
-    static boolean kasTööalaÜmbrusOnSorteeritud(MassiiviSeis massiiviSeis) {
-        //kas enne ja pärast tööala on täpselt need elemendid, nagu sorteeritud massiivi puhul peaks
-        int[] sorteeritudMassiiv = kopeeriJaSorteeriMassiiv(massiiviSeis.getMassiiv());
-        for (int i = 0; i < massiiviSeis.getTööalaAlgusIndeks(); i++) {
-            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
-        }
-        for (int i = massiiviSeis.getTööalaleJärgnevIndeks(); i < massiiviSeis.getMassiiv().length; i++) {
-            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
-        }
-        return true;
-    }
+
 
     public static boolean kasVahemikOnSorteeritud(int[] massiiv, int algusIndeks, int lõpuIndeks) {
         //kas antud vahemik on sorteeritud

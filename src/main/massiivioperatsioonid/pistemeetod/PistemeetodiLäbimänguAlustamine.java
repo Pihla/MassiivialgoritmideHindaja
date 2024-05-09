@@ -12,12 +12,12 @@ public class PistemeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        return new PistemeetodiTööalaValimineVõiMuutmine( 0, 1, this.getMassiivPealeOperatsiooni());
+        return new PistemeetodiTööalaValimine( 0, 1, this.getSeis());
     }
 
     @Override
     public String toString() {
-        return String.format("Pistemeetodi läbimängu alustamine massiivil %s", this.getMassiivPealeOperatsiooni());
+        return String.format("Pistemeetodi läbimängu alustamine massiivil %s", this.getSeis());
     }
 
 }

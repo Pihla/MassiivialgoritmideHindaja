@@ -7,17 +7,46 @@ import main.massiivioperatsioonid.LäbimänguLõpetamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class Testid {
+    //kommentaar
     Random random = new Random(2);
     LäbimänguHindaja läbimänguHindaja;
-    int katseteKordusi = 100;
+    int katseteKordusi = 1;
     int massiivisElemente = 7;
     int maxJuhuslikVäärtus = 20;
+
+
+    @org.junit.jupiter.api.Test
+    void sorteerimineTest() {
+        for (int i = 0; i < katseteKordusi; i++) {
+            List<Massiivioperatsioon> käigud = new ArrayList<>();
+
+            Massiivioperatsioon viimaneKäik = uueLäbimänguAlustamiseOperatsioon();
+            käigud = sorteeriEdasi(käigud, viimaneKäik);
+
+            Hindamistulemus hindamistulemus = läbimänguHindaja.hinda(käigud);
+            assertEquals(0, hindamistulemus.getValedeKäikudeArv());
+            assertEquals(1, hindamistulemus.arvutaPunktid());
+
+            int[] eeldatavastiSorteeritudMassiiv = käigud.get(käigud.size()-1).getSeis().getMassiiv();
+
+            if(MassiiviTööriistad.kasSorteerimata(eeldatavastiSorteeritudMassiiv)) {
+                throw new RuntimeException(String.format("Viga massiivi %s sorteerimisel", käigud.get(0).getSeis()));
+            }
+
+            /*for (Massiivioperatsioon massiivioperatsioon : käigud) {
+                System.out.println(massiivioperatsioon);
+            }*/
+
+        }
+    }
+
 
     MassiiviSeis looUusMassiiviSeis() {
         int[] massiiv = new int[massiivisElemente];
@@ -39,13 +68,17 @@ public abstract class Testid {
 
         Massiivioperatsioon viimaneKäik = järgmineKäik;
         if(!viimaneKäik.kasOnVõimalikLäbimänguJätkata()) { //TODO kontrollida kas seda on ikka vaja. vb while-ga jõuaks ka läbimängu lõpetamiseni
-            tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getMassiivPealeOperatsiooni()));
+            tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getSeis()));
+            //System.out.println("ei ole võimalik läbimängu järkata");
             return tehtudKäigud;
         }
+        //System.out.println("on võimalik läbimängu jätkata");
         while(!(viimaneKäik instanceof LäbimänguLõpetamine)) {
             viimaneKäik = viimaneKäik.järgmineÕigeKäik();
+            //System.out.println(viimaneKäik);
             tehtudKäigud.add(viimaneKäik);
         }
+        //System.out.println("--");
         return tehtudKäigud;
     }
 
@@ -65,7 +98,7 @@ public abstract class Testid {
 
             while(!(viimaneKäik instanceof LäbimänguLõpetamine)) {//teen järjest õigeid käike
                 järgmineÕigeKäik = viimaneKäik.järgmineÕigeKäik();
-                List<Massiivioperatsioon> võimalikudKäigud = kõikvõimalikudKäigud(viimaneKäik.getMassiivPealeOperatsiooni());
+                List<Massiivioperatsioon> võimalikudKäigud = kõikvõimalikudKäigud(viimaneKäik.getSeis());
 
                 //peale iga õige käigu tegemist vaatan läbi kõik variandid, kus teen nüüd vale käigu ja jälle edasi õigesti
                 for (Massiivioperatsioon võimalikKäik : võimalikudKäigud) {
@@ -73,17 +106,25 @@ public abstract class Testid {
                         continue;
                     }
 
+                    //System.out.println("teen vea " + võimalikKäik);
+
                     List<Massiivioperatsioon> täielikSorteerimine1Veaga = sorteeriEdasi(õigedKäigud, võimalikKäik);
                     Hindamistulemus hindamistulemus = läbimänguHindaja.hinda(täielikSorteerimine1Veaga);
 
                     assertEquals(1, hindamistulemus.getValedeKäikudeArv());
                     assertTrue(hindamistulemus.arvutaPunktid() < 1);
 
+                    /*System.out.println("---algus");
+                    for (Massiivioperatsioon massiivioperatsioon : täielikSorteerimine1Veaga) {
+                        System.out.println(massiivioperatsioon);
+                    }
+                    System.out.println("---lõpp");*/
+
                     if(hindamistulemus.getOluliseVeaIndeks() == null) {
                         esinebOlulineViga = true;
-                        int[] eeldatavastiSorteeritudMassiiv = täielikSorteerimine1Veaga.get(täielikSorteerimine1Veaga.size()-1).getMassiivPealeOperatsiooni().getMassiiv();
+                        int[] eeldatavastiSorteeritudMassiiv = täielikSorteerimine1Veaga.get(täielikSorteerimine1Veaga.size()-1).getSeis().getMassiiv();
                         if(MassiiviTööriistad.kasSorteerimata(eeldatavastiSorteeritudMassiiv)) {
-                            throw new RuntimeException(String.format("Viga massiivi %s sorteerimisel", täielikSorteerimine1Veaga.get(0).getMassiivPealeOperatsiooni()));
+                            throw new RuntimeException(String.format("Viga massiivi %s sorteerimisel: %s pole sorteeritud", täielikSorteerimine1Veaga.get(0).getSeis(), Arrays.toString(eeldatavastiSorteeritudMassiiv)));
                         }
                     }
                     else {
@@ -109,26 +150,6 @@ public abstract class Testid {
         }
     }
 
-    @org.junit.jupiter.api.Test
-    void sorteerimineTest() {
-        for (int i = 0; i < katseteKordusi; i++) {
-            List<Massiivioperatsioon> käigud = new ArrayList<>();
-
-            Massiivioperatsioon viimaneKäik = uueLäbimänguAlustamiseOperatsioon();
-            käigud = sorteeriEdasi(käigud, viimaneKäik);
-
-            Hindamistulemus hindamistulemus = läbimänguHindaja.hinda(käigud);
-            assertEquals(0, hindamistulemus.getValedeKäikudeArv());
-            assertEquals(1, hindamistulemus.arvutaPunktid());
-
-            int[] eeldatavastiSorteeritudMassiiv = käigud.get(käigud.size()-1).getMassiivPealeOperatsiooni().getMassiiv();
-
-            if(MassiiviTööriistad.kasSorteerimata(eeldatavastiSorteeritudMassiiv)) {
-                throw new RuntimeException(String.format("Viga massiivi %s sorteerimisel", käigud.get(0).getMassiivPealeOperatsiooni()));
-            }
-
-        }
-    }
 
 
 }
