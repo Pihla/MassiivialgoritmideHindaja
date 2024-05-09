@@ -20,24 +20,24 @@ public class PistemeetodiTestid extends Testid {
     }
 
     @Override
-    List<Massiivioperatsioon> kõikvõimalikudValedKäigud(MassiiviSeis massiiviSeis) {
-        List<Massiivioperatsioon> võimalikudValedKäigud = new ArrayList<>();
+    List<Massiivioperatsioon> kõikvõimalikudKäigud(MassiiviSeis massiiviSeis) {
+        List<Massiivioperatsioon> võimalikudKäigud = new ArrayList<>();
 
         //Pisted
         for (int i = 0; i < massiiviSeis.getMassiiv().length; i++) {
             for (int j = 0; j < massiiviSeis.getMassiiv().length; j++) {
-                võimalikudValedKäigud.add(new PistemeetodiPiste(i, j, massiiviSeis));
+                võimalikudKäigud.add(new PistemeetodiPiste(i, j, massiiviSeis));
             }
         }
 
         //Tööala muutmised eeldusega, et lõpuindeks >= algusindeks
         for (int i = 0; i < massiiviSeis.getMassiiv().length; i++) {
             for (int j = i; j < massiiviSeis.getMassiiv().length; j++) {
-                võimalikudValedKäigud.add(new PistemeetodiTööalaValimineVõiMuutmine(i, j, massiiviSeis));
+                võimalikudKäigud.add(new PistemeetodiTööalaValimineVõiMuutmine(i, j, massiiviSeis));
             }
         }
 
-        return võimalikudValedKäigud;
+        return võimalikudKäigud;
     }
 
 }

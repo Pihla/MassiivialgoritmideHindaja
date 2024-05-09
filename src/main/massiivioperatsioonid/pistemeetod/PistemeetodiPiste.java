@@ -13,7 +13,10 @@ public class PistemeetodiPiste extends Piste {
     }
 
     @Override
-    public Massiivioperatsioon järgmineÕigeOperatsioon() {
+    public Massiivioperatsioon järgmineÕigeKäik() {
+        if(getMassiivPealeOperatsiooni().getTööalaAlgusIndeks() == null || getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() == null) {
+            return new PistemeetodiTööalaValimineVõiMuutmine(0, 1, this.getMassiivPealeOperatsiooni());
+        }
         if(this.getMassiivPealeOperatsiooni().getMassiiv().length == this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()) {
             return new LäbimänguLõpetamine(this.getMassiivPealeOperatsiooni());
         }
@@ -22,6 +25,9 @@ public class PistemeetodiPiste extends Piste {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
+        if(getMassiivPealeOperatsiooni().getTööalaAlgusIndeks() == null || getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() == null) {
+            return true;
+        }
         if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getMassiivPealeOperatsiooni().getMassiiv(), this.getMassiivPealeOperatsiooni().getTööalaAlgusIndeks())) {
             return false;
         }

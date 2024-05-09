@@ -8,7 +8,7 @@ public class LäbimänguLõpetamine extends Massiivioperatsioon{
     }
 
     @Override
-    public Massiivioperatsioon järgmineÕigeOperatsioon() {
+    public Massiivioperatsioon järgmineÕigeKäik() {
         throw new RuntimeException("Peale läbimängu lõpetamist ei saa rohkem operatsioone teha");
     }
 

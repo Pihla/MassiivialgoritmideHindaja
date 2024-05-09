@@ -9,14 +9,15 @@ public class PistemeetodiLäbimänguHindaja extends LäbimänguHindaja {
 
 
     @Override
-    public int leiaRaskusparameeter(List<Massiivioperatsioon> tehtudOperatsioonid) {
-        //raskusparameeter on tehtavate pistete arv
+    public int leiaRaskusparameeter(List<Massiivioperatsioon> tehtudKäigud) {
+        //pistemeetodi raskusparameeter on tehtavate pistete arv
         int raskusparameeter = 0;
-        for (Massiivioperatsioon massiivioperatsioon : tehtudOperatsioonid) {
-            if(massiivioperatsioon instanceof PistemeetodiPiste) {
+        for (Massiivioperatsioon käik : tehtudKäigud) {
+            if(käik instanceof PistemeetodiPiste) {
                 raskusparameeter += 1;
             }
         }
+
         return raskusparameeter;
     }
 }

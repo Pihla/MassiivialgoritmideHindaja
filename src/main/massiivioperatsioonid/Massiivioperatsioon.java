@@ -8,7 +8,7 @@ public abstract class Massiivioperatsioon {
     public MassiiviSeis getMassiivPealeOperatsiooni() {
         return massiivPealeOperatsiooni;
     }
-    public abstract Massiivioperatsioon järgmineÕigeOperatsioon();
+    public abstract Massiivioperatsioon järgmineÕigeKäik();
     public abstract boolean kasOnVõimalikLäbimänguJätkata();
 
     public Massiivioperatsioon(MassiiviSeis massiivEnneOperatsiooni) {

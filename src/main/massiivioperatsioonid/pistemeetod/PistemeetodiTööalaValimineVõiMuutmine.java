@@ -15,7 +15,7 @@ public class PistemeetodiTööalaValimineVõiMuutmine extends TööalaValimineV�
     }
 
     @Override
-    public Massiivioperatsioon järgmineÕigeOperatsioon() {
+    public Massiivioperatsioon järgmineÕigeKäik() {
         if(this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks() > 1
                 && this.getMassiivPealeOperatsiooni().getMassiiv()[this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()-1] <
                 this.getMassiivPealeOperatsiooni().getMassiiv()[this.getMassiivPealeOperatsiooni().getTööalaleJärgnevIndeks()-2]) {

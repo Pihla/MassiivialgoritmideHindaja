@@ -7,6 +7,7 @@ public class Hindamistulemus {
     private int raskusparameeter;
     private int oodatudRaskusparameeter;
 
+    //TODO vaadata üle kas selle klassi kasutamine on loogiline
     public Hindamistulemus(int käikudeArv) {
         this.käikudeArv = käikudeArv;
     }
@@ -50,13 +51,22 @@ public class Hindamistulemus {
         this.oodatudRaskusparameeter = oodatudRaskusparameeter;
     }
 
+    public double arvutaPunktid() {
+        int õigeidKäike = käikudeArv-valedeKäikudeArv;
+        double õigeteKäikudeOsakaal = 1.0*õigeidKäike/käikudeArv;
+        double raskuseSuhtelineHinnang = 1.0*raskusparameeter/oodatudRaskusparameeter;
+        raskuseSuhtelineHinnang = Math.min(raskuseSuhtelineHinnang, 1);
+
+        return õigeteKäikudeOsakaal * raskuseSuhtelineHinnang;
+    }
+
     public String toString() {
         int õigeidKäike = käikudeArv-valedeKäikudeArv;
         double õigeteKäikudeOsakaal = 1.0*õigeidKäike/käikudeArv;
-        double raskuseProtsent = 1.0*raskusparameeter/oodatudRaskusparameeter;
+        double raskuseSuhtelineHinnang = 1.0*raskusparameeter/oodatudRaskusparameeter;
         String oluliseVeaInfo = oluliseVeaIndeks == null ? "puudub" : "indeksil "+oluliseVeaIndeks;
 
-        return String.format("Raskusparameeter %d/%d ehk %.2f, õigeid käike %d/%d ehk %.2f, oluline viga %s", raskusparameeter, oodatudRaskusparameeter, raskuseProtsent, õigeidKäike, käikudeArv, õigeteKäikudeOsakaal, oluliseVeaInfo);
+        return String.format("Raskusparameeter %d/%d ehk %.2f, õigeid käike %d/%d ehk %.2f, oluline viga %s, kokku punkte %.2f", raskusparameeter, oodatudRaskusparameeter, raskuseSuhtelineHinnang, õigeidKäike, käikudeArv, õigeteKäikudeOsakaal, oluliseVeaInfo, arvutaPunktid());
 
     }
 }
