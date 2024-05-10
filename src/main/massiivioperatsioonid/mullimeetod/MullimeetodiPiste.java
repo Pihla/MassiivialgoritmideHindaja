@@ -5,8 +5,6 @@ import main.MassiiviTööriistad;
 import main.massiivioperatsioonid.Massiivioperatsioon;
 import main.massiivioperatsioonid.Piste;
 
-import java.util.Arrays;
-
 public class MullimeetodiPiste extends Piste {
     public MullimeetodiPiste(int pisteAlgusIndeks, int pisteLõpuIndeks, MassiiviSeis massiivEnnePistet) {
         super(pisteAlgusIndeks, pisteLõpuIndeks, massiivEnnePistet);
@@ -26,10 +24,10 @@ public class MullimeetodiPiste extends Piste {
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
         if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) return true;
-        if(!MullimeetodiTööristad.kasTööalaÜmbrusOnSorteeritud(getSeis())) {
+        if(!MassiiviTööriistad.kasTööalaÜmbrusOnSorteeritud(getSeis())) {
             return false;
         }
-        int vähim = MassiiviTööriistad.tööalaVähimaElemendiVäärtus(getSeis());
+        int vähim = getSeis().getMassiiv()[MassiiviTööriistad.tööalaAlgusestVähimaElemendiIndeks(getSeis())];
         for (int i = getPisteLõpuIndeks()-1; i >= getSeis().getTööalaAlgusIndeks(); i--) {
             if(vähim == getSeis().getMassiiv()[i]) {
                 return true;

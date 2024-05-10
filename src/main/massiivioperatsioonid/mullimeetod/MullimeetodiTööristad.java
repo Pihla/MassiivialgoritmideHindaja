@@ -20,15 +20,5 @@ public class MullimeetodiTööristad {
         return null;
     }
 
-    static boolean kasTööalaÜmbrusOnSorteeritud(MassiiviSeis massiiviSeis) {
-        //kas enne ja pärast tööala on täpselt need elemendid nagu sorteeritud massiivis oleks
-        int[] sorteeritudMassiiv = kopeeriJaSorteeriMassiiv(massiiviSeis.getMassiiv());
-        for (int i = 0; i < massiiviSeis.getTööalaAlgusIndeks(); i++) {
-            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
-        }
-        for (int i = massiiviSeis.getTööalaleJärgnevIndeks(); i < massiiviSeis.getMassiiv().length; i++) {
-            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
-        }
-        return true;
-    }
+
 }

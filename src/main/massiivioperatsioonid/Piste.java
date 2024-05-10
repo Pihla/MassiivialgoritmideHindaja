@@ -17,6 +17,9 @@ public abstract class Piste extends Massiivioperatsioon {
 
     public Piste(int pisteAlgusIndeks, int pisteLõpuIndeks, MassiiviSeis massiivEnnePistet) {
         super(massiivEnnePistet);
+        if(pisteAlgusIndeks == pisteLõpuIndeks) {
+            throw new RuntimeException("Piste algus- ja lõpp-punkt peavad olema erinevad");
+        }
         this.pisteAlgusIndeks = pisteAlgusIndeks;
         this.pisteLõpuIndeks = pisteLõpuIndeks;
         teePiste();

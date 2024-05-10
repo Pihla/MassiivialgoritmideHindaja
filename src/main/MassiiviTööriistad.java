@@ -4,14 +4,27 @@ package main;
 import java.util.Arrays;
 
 public class MassiiviTööriistad {
-    public static int tööalaVähimaElemendiVäärtus(MassiiviSeis massiiviSeis) {
-        int vähimaVäärtus = massiiviSeis.getMassiiv()[massiiviSeis.getTööalaAlgusIndeks()];
+    public static boolean kasTööalaÜmbrusOnSorteeritud(MassiiviSeis massiiviSeis) {
+        //kas enne ja pärast tööala on täpselt need elemendid nagu sorteeritud massiivis oleks
+        int[] sorteeritudMassiiv = kopeeriJaSorteeriMassiiv(massiiviSeis.getMassiiv());
+        for (int i = 0; i < massiiviSeis.getTööalaAlgusIndeks(); i++) {
+            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
+        }
+        for (int i = massiiviSeis.getTööalaleJärgnevIndeks(); i < massiiviSeis.getMassiiv().length; i++) {
+            if(massiiviSeis.getMassiiv()[i] != sorteeritudMassiiv[i]) return false;
+        }
+        return true;
+    }
+    public static int tööalaAlgusestVähimaElemendiIndeks(MassiiviSeis massiiviSeis) {
+        int vähimaIndeks = massiiviSeis.tööalaAlgusIndeks;
+        int vähimaVäärtus = massiiviSeis.getMassiiv()[vähimaIndeks];
         for (Integer i = massiiviSeis.tööalaAlgusIndeks; i < massiiviSeis.getTööalaleJärgnevIndeks(); i++) {
             if(massiiviSeis.getMassiiv()[i] < vähimaVäärtus) {
-                vähimaVäärtus = massiiviSeis.getMassiiv()[i];
+                vähimaIndeks = i;
+                vähimaVäärtus = massiiviSeis.getMassiiv()[vähimaIndeks];
             }
         }
-        return vähimaVäärtus;
+        return vähimaIndeks;
     }
     public static int[] kopeeriJaSorteeriMassiiv(int[] massiiv) {
         int[] koopiaMassiiv = Arrays.copyOf(massiiv, massiiv.length);

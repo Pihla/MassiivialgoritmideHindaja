@@ -10,23 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PistemeetodiTestid extends Testid {
+    PistemeetodiTestid() {
+        this.läbimänguHindaja = new PistemeetodiLäbimänguHindaja();
+    }
 
     @Override
     LäbimänguAlustamine uueLäbimänguAlustamiseOperatsioon() {
-        this.läbimänguHindaja = new PistemeetodiLäbimänguHindaja();
-        //TODO vaadata kas saab selle läbimänguhindaja ära võtta siit ja teistest klassidest ja teistest meetoditest
         return new PistemeetodiLäbimänguAlustamine(looUusMassiiviSeis());
     }
 
     @Override
     List<Massiivioperatsioon> kõikvõimalikudKäigud(MassiiviSeis massiiviSeis) {
-        this.läbimänguHindaja = new PistemeetodiLäbimänguHindaja();
         List<Massiivioperatsioon> võimalikudKäigud = new ArrayList<>();
 
-        //Pisted
+        //Pisted eeldusega, et piste alg- ja lõpp-punkt on erinevad
         for (int i = 0; i < massiiviSeis.getMassiiv().length; i++) {
             for (int j = 0; j < massiiviSeis.getMassiiv().length; j++) {
-                võimalikudKäigud.add(new PistemeetodiPiste(i, j, massiiviSeis));
+                if(i != j) {
+                    võimalikudKäigud.add(new PistemeetodiPiste(i, j, massiiviSeis));
+                }
             }
         }
 

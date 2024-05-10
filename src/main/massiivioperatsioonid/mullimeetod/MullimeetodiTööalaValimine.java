@@ -21,6 +21,6 @@ public class MullimeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        return MullimeetodiTööristad.kasTööalaÜmbrusOnSorteeritud(getSeis());
+        return MassiiviTööriistad.kasTööalaÜmbrusOnSorteeritud(getSeis());
     }
 }

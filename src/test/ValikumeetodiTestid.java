@@ -1,33 +1,32 @@
 import main.MassiiviSeis;
-import main.läbimänguHindajad.MullimeetodiLäbimänguHindaja;
+import main.läbimänguHindajad.ValikumeetodiLäbimänguHindaja;
 import main.massiivioperatsioonid.LäbimänguAlustamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.mullimeetod.MullimeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.mullimeetod.MullimeetodiPiste;
-import main.massiivioperatsioonid.mullimeetod.MullimeetodiTööalaValimine;
+import main.massiivioperatsioonid.valikumeetod.ValikumeetodiElementideVahetamine;
+import main.massiivioperatsioonid.valikumeetod.ValikumeetodiLäbimänguAlustamine;
+import main.massiivioperatsioonid.valikumeetod.ValikumeetodiTööalaValimine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MullimeetodiTestid extends Testid {
-    MullimeetodiTestid() {
-        this.läbimänguHindaja = new MullimeetodiLäbimänguHindaja();
+public class ValikumeetodiTestid extends Testid{
+    ValikumeetodiTestid() {
+        this.läbimänguHindaja = new ValikumeetodiLäbimänguHindaja();
     }
-
     @Override
     LäbimänguAlustamine uueLäbimänguAlustamiseOperatsioon() {
-        return new MullimeetodiLäbimänguAlustamine(looUusMassiiviSeis());
+        return new ValikumeetodiLäbimänguAlustamine(looUusMassiiviSeis());
     }
 
     @Override
     List<Massiivioperatsioon> kõikvõimalikudKäigud(MassiiviSeis massiiviSeis) {
         List<Massiivioperatsioon> võimalikudKäigud = new ArrayList<>();
 
-        //Pisted eeldusega, et piste alg- ja lõpp-punkt on erinevad
+        //Elementide vahetused eeldusega, et vahetatavad elemendid on erinevad
         for (int i = 0; i < massiiviSeis.getMassiiv().length; i++) {
             for (int j = 0; j < massiiviSeis.getMassiiv().length; j++) {
                 if(i != j) {
-                    võimalikudKäigud.add(new MullimeetodiPiste(i, j, massiiviSeis));
+                    võimalikudKäigud.add(new ValikumeetodiElementideVahetamine(i, j, massiiviSeis));
                 }
             }
         }
@@ -35,7 +34,7 @@ public class MullimeetodiTestid extends Testid {
         //Tööala muutmised eeldusega, et lõpuindeks > algusindeks
         for (int i = 0; i < massiiviSeis.getMassiiv().length; i++) {
             for (int j = i+1; j < massiiviSeis.getMassiiv().length; j++) {
-                võimalikudKäigud.add(new MullimeetodiTööalaValimine(i, j, massiiviSeis));
+                võimalikudKäigud.add(new ValikumeetodiTööalaValimine(i, j, massiiviSeis));
             }
         }
 
