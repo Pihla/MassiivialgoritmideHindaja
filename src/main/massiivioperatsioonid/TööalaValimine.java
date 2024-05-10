@@ -6,13 +6,13 @@ import main.MassiiviSeis;
 import java.util.Objects;
 
 public abstract class TööalaValimine extends Massiivioperatsioon {
-    public TööalaValimine(int uusTööalaAlgus, int uusTööalaLõpp, MassiiviSeis massiivEnneOperatsiooni) {
+    public TööalaValimine(int uusTööalaAlgus, int uusTööalaleJärgnevIndeks, MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
-        if(uusTööalaAlgus >= uusTööalaLõpp) {
+        if(uusTööalaAlgus >= uusTööalaleJärgnevIndeks) {
             throw new RuntimeException("Tööala algus peab asuma tööala lõpust eespool");
         }
         this.seis.setTööalaAlgusIndeks(uusTööalaAlgus);
-        this.seis.setTööalaleJärgnevIndeks(uusTööalaLõpp);
+        this.seis.setTööalaleJärgnevIndeks(uusTööalaleJärgnevIndeks);
     }
 
     @Override

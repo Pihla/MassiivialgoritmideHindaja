@@ -14,7 +14,7 @@ public class PistemeetodiPiste extends Piste {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return new PistemeetodiTööalaValimine(0, 1, this.getSeis());
         }
         if(this.getSeis().getMassiiv().length == this.getSeis().getTööalaleJärgnevIndeks()) {
@@ -25,7 +25,7 @@ public class PistemeetodiPiste extends Piste {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return true;
         }
         if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {

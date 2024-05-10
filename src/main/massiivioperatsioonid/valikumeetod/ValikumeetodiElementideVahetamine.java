@@ -12,7 +12,7 @@ public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return new ValikumeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
         return new ValikumeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
@@ -20,7 +20,7 @@ public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return true;
         }
         if (!MassiiviTööriistad.kasTööalaÜmbrusOnSorteeritud(getSeis())) {

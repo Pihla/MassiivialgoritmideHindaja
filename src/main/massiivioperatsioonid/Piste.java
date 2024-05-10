@@ -4,8 +4,8 @@ package main.massiivioperatsioonid;
 import main.MassiiviSeis;
 
 public abstract class Piste extends Massiivioperatsioon {
-    private int pisteAlgusIndeks;
-    private int pisteLõpuIndeks;
+    private int pisteAlgusIndeks;//kus on element enne pistet
+    private int pisteLõpuIndeks;//kus on element peale pistet
 
     public int getPisteAlgusIndeks() {
         return pisteAlgusIndeks;

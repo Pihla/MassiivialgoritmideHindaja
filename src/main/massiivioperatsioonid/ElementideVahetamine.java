@@ -3,28 +3,35 @@ package main.massiivioperatsioonid;
 import main.MassiiviSeis;
 
 public abstract class ElementideVahetamine extends Massiivioperatsioon{
-    int esimeseElemendiIndeks;
-    int teiseElemendiIndeks;
-    public ElementideVahetamine(int esimeseElemendiIndeks, int teiseElemendiIndeks, MassiiviSeis massiivEnneOperatsiooni) {
+    int vasakpoolseElemendiIndeks;
+    int parempoolseElemendiIndeks;
+    public ElementideVahetamine(int üheVahetatavaIndeks, int teiseVahetatavaIndeks, MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
-        if(esimeseElemendiIndeks == teiseElemendiIndeks) {
+        if(üheVahetatavaIndeks == teiseVahetatavaIndeks) {
             throw new RuntimeException("Vahetatavad elemendid peavad olema erinevad");
         }
-        this.esimeseElemendiIndeks = esimeseElemendiIndeks;
-        this.teiseElemendiIndeks = teiseElemendiIndeks;
-        //TODO vb muuta järjekord alati samaks
+        this.vasakpoolseElemendiIndeks = Math.min(üheVahetatavaIndeks, teiseVahetatavaIndeks);
+        this.parempoolseElemendiIndeks = Math.max(üheVahetatavaIndeks, teiseVahetatavaIndeks);
         teeVahetus();
     }
 
+    public int getVasakpoolseElemendiIndeks() {
+        return vasakpoolseElemendiIndeks;
+    }
+
+    public int getParempoolseElemendiIndeks() {
+        return parempoolseElemendiIndeks;
+    }
+
     private void teeVahetus() {
-        int abi = getSeis().getMassiiv()[esimeseElemendiIndeks];
-        getSeis().getMassiiv()[esimeseElemendiIndeks] = getSeis().getMassiiv()[teiseElemendiIndeks];
-        getSeis().getMassiiv()[teiseElemendiIndeks] = abi;
+        int abi = getSeis().getMassiiv()[vasakpoolseElemendiIndeks];
+        getSeis().getMassiiv()[vasakpoolseElemendiIndeks] = getSeis().getMassiiv()[parempoolseElemendiIndeks];
+        getSeis().getMassiiv()[parempoolseElemendiIndeks] = abi;
     }
 
     @Override
     public String toString() {
-        return String.format("Elementide vahetus indeksitel %d ja %d. Uus massiiv: %s", esimeseElemendiIndeks, teiseElemendiIndeks, getSeis());
+        return String.format("Elementide vahetus indeksitel %d ja %d. Uus massiiv: %s", vasakpoolseElemendiIndeks, parempoolseElemendiIndeks, getSeis());
     }
 
     @Override
@@ -37,7 +44,7 @@ public abstract class ElementideVahetamine extends Massiivioperatsioon{
             return false;
         }
 
-        return this.esimeseElemendiIndeks == elementideVahetamine.esimeseElemendiIndeks
-                && this.teiseElemendiIndeks == elementideVahetamine.teiseElemendiIndeks;
+        return this.vasakpoolseElemendiIndeks == elementideVahetamine.vasakpoolseElemendiIndeks
+                && this.parempoolseElemendiIndeks == elementideVahetamine.parempoolseElemendiIndeks;
     }
 }

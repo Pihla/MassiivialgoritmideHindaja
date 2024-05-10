@@ -4,6 +4,9 @@ package main;
 import java.util.Arrays;
 
 public class MassiiviTööriistad {
+    public static boolean kasTööalaValimata(MassiiviSeis massiiviSeis) {
+        return massiiviSeis.getTööalaAlgusIndeks() == null || massiiviSeis.getTööalaleJärgnevIndeks() == null;
+    }
     public static boolean kasTööalaÜmbrusOnSorteeritud(MassiiviSeis massiiviSeis) {
         //kas enne ja pärast tööala on täpselt need elemendid nagu sorteeritud massiivis oleks
         int[] sorteeritudMassiiv = kopeeriJaSorteeriMassiiv(massiiviSeis.getMassiiv());

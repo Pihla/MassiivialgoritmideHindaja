@@ -12,7 +12,7 @@ public class MullimeetodiPiste extends Piste {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return new MullimeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
         if(!MassiiviTööriistad.kasVahemikOnSorteeritud(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks(), getPisteLõpuIndeks())) {
@@ -23,7 +23,7 @@ public class MullimeetodiPiste extends Piste {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(getSeis().getTööalaAlgusIndeks() == null || getSeis().getTööalaleJärgnevIndeks() == null) return true;
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) return true;
         if(!MassiiviTööriistad.kasTööalaÜmbrusOnSorteeritud(getSeis())) {
             return false;
         }

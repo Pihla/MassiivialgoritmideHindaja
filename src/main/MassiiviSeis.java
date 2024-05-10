@@ -37,11 +37,17 @@ public class MassiiviSeis {
     public MassiiviSeis teeKoopia() {
         return new MassiiviSeis(this.massiiv, this.tööalaAlgusIndeks, this.tööalaleJärgnevIndeks);
     }
-
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < this.massiiv.length; i++) {
-            if(this.tööalaAlgusIndeks != null && this.getTööalaleJärgnevIndeks() != null && (i == this.tööalaAlgusIndeks || i == this.tööalaleJärgnevIndeks)) {
+            //TODO kas seda ifi peaks siit ära võtma
+            if(this instanceof ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis) {
+                if(valikuKiirmeetodiMassiiviSeis.getVastusePiir() == i) {
+                    sb.append("_ ");
+                }
+            }
+            if(!MassiiviTööriistad.kasTööalaValimata(this) && (i == this.tööalaAlgusIndeks || i == this.tööalaleJärgnevIndeks)) {
                 sb.append("|");
                 if(i != this.massiiv.length - 1) {
                     sb.append(" ");

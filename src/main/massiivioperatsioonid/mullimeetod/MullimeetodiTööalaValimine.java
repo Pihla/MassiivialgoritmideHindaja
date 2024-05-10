@@ -7,8 +7,8 @@ import main.massiivioperatsioonid.Massiivioperatsioon;
 import main.massiivioperatsioonid.TööalaValimine;
 
 public class MullimeetodiTööalaValimine extends TööalaValimine {
-    public MullimeetodiTööalaValimine(int uusTööalaAlgus, int uusTööalaLõpp, MassiiviSeis massiivEnneOperatsiooni) {
-        super(uusTööalaAlgus, uusTööalaLõpp, massiivEnneOperatsiooni);
+    public MullimeetodiTööalaValimine(int uusTööalaAlgus, int uusTööalaleJärgnevIndeks, MassiiviSeis massiivEnneOperatsiooni) {
+        super(uusTööalaAlgus, uusTööalaleJärgnevIndeks, massiivEnneOperatsiooni);
     }
 
     @Override

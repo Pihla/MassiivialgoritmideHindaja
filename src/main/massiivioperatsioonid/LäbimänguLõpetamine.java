@@ -1,10 +1,14 @@
 package main.massiivioperatsioonid;
 
 import main.MassiiviSeis;
+import main.ValikuKiirmeetodiMassiiviSeis;
 
 public class LäbimänguLõpetamine extends Massiivioperatsioon{
     public LäbimänguLõpetamine(MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
+        if(massiivEnneOperatsiooni instanceof ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis) {
+            this.seis = valikuKiirmeetodiMassiiviSeis.teeKoopia();//TODO see ka ära võtta kuidagi
+        }
     }
 
     @Override

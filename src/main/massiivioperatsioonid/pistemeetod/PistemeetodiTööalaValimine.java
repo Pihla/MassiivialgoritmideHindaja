@@ -10,8 +10,8 @@ import main.massiivioperatsioonid.TööalaValimine;
 public class PistemeetodiTööalaValimine extends TööalaValimine {
 
 
-    public PistemeetodiTööalaValimine(int uusTööalaAlgus, int uusTööalaLõpp, MassiiviSeis massiivEnneOperatsiooni) {
-        super(uusTööalaAlgus, uusTööalaLõpp, massiivEnneOperatsiooni);
+    public PistemeetodiTööalaValimine(int uusTööalaAlgus, int uusTööalaleJärgnevIndeks, MassiiviSeis massiivEnneOperatsiooni) {
+        super(uusTööalaAlgus, uusTööalaleJärgnevIndeks, massiivEnneOperatsiooni);
     }
 
     @Override
