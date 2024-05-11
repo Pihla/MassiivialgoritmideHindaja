@@ -1,0 +1,62 @@
+package main.massiivioperatsioonid.valikuKiirmeetod;
+
+import main.MassiiviSeis;
+import main.MassiiviTööriistad;
+import main.ValikuKiirmeetodiMassiiviSeis;
+import main.massiivioperatsioonid.LahkmeJärgiJaotamine;
+import main.massiivioperatsioonid.LäbimänguLõpetamine;
+import main.massiivioperatsioonid.Massiivioperatsioon;
+
+public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamine {
+
+    ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis;
+
+    public ValikuKiirmeetodiLahkmeJärgiJaotamine(MassiiviSeis massiivPealeOperatsiooni, int lahkmeJärgiJaotamisePiiristJärgnevIndeks) {
+        super(massiivPealeOperatsiooni, lahkmeJärgiJaotamisePiiristJärgnevIndeks);
+    }
+
+    //TODO mõelda kas on parem lahendus kui seda välja ja geti ja seti 3 eri kohas kopeerida
+    @Override
+    public ValikuKiirmeetodiMassiiviSeis getSeis() {
+        return valikuKiirmeetodiMassiiviSeis;
+    }
+
+    @Override
+    public void setSeis(MassiiviSeis seis) {
+        if(seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
+            this.valikuKiirmeetodiMassiiviSeis = uusSeis;
+        }
+        else {
+            throw new RuntimeException("valikukiirmeetodi seis peab olema valikukiirmeetodiseisu isend");
+        }
+    }
+
+    @Override
+    public Massiivioperatsioon järgmineÕigeKäik() {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+            return new ValikuKiirmeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
+        }
+
+        int praegunePikkus = this.getLahkmeJärgiJaotamisePiiristJärgnevIndeks();
+        int oodatavPikkus = getSeis().getVastusePiir();
+        if(praegunePikkus == oodatavPikkus) {
+            return new LäbimänguLõpetamine(getSeis());
+        }
+        if(praegunePikkus > oodatavPikkus) {
+            return new ValikuKiirmeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks(), praegunePikkus, getSeis());
+        }
+        return new ValikuKiirmeetodiTööalaValimine(praegunePikkus, getSeis().getTööalaleJärgnevIndeks(), getSeis());
+    }
+
+    @Override
+    public boolean kasOnVõimalikLäbimänguJätkata() {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+            return true;
+        }
+        Massiivioperatsioon järgmineÕigeKäik = järgmineÕigeKäik();
+
+        return (järgmineÕigeKäik instanceof LäbimänguLõpetamine && !ValikuKiirmeetodiTööriistad.kasVähimadElemendidPoleEes(valikuKiirmeetodiMassiiviSeis)
+                )||
+                järgmineÕigeKäik.kasOnVõimalikLäbimänguJätkata();//TODO vb midagi paremat mõelda
+    }
+}

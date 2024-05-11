@@ -3,19 +3,15 @@ package main;
 public class ValikuKiirmeetodiMassiiviSeis extends MassiiviSeis{
     int vastusePiir; //esimese elemendi indeks, mis ei jää vähimate elementide hulka
 
-    public ValikuKiirmeetodiMassiiviSeis(int[] massiiv, Integer tööalaAlgusIndeks, Integer tööalaleJärgnevIndeks, int leitavateElementideArv) {
+    public ValikuKiirmeetodiMassiiviSeis(int[] massiiv, Integer tööalaAlgusIndeks, Integer tööalaleJärgnevIndeks, int vastusePiir) {
         super(massiiv, tööalaAlgusIndeks, tööalaleJärgnevIndeks);
-        this.vastusePiir = leitavateElementideArv;
+        this.vastusePiir = vastusePiir;
     }
 
     public int getVastusePiir() {
         return vastusePiir;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + ", otsime esimest "+vastusePiir + " elementi";
-    }
 
     @Override
     public ValikuKiirmeetodiMassiiviSeis teeKoopia() {

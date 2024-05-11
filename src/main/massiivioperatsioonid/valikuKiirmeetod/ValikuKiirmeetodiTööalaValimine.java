@@ -29,13 +29,13 @@ public class ValikuKiirmeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        int lahe = getSeis().getMassiiv()[getSeis().getTööalaAlgusIndeks()];
-        //System.out.println(getSeis().getTööalaAlgusIndeks() + " on algus ja vatsuse piir on " + getSeis().getVastusePiir());
-        if(getSeis().getTööalaAlgusIndeks() == getSeis().getVastusePiir()
-        || getSeis().getTööalaleJärgnevIndeks() == getSeis().getVastusePiir()) {
+        int oodatavPikkus = getSeis().getVastusePiir();
+        if(getSeis().getTööalaAlgusIndeks() == oodatavPikkus) {//TODO konstrollida kas selline ais on loogiline
             return new LäbimänguLõpetamine(getSeis());
         }
-        return ValikuKiirmeetodiTööriistad.leiaJärgmineÕigeKäik(getSeis(), lahe, getSeis().getTööalaAlgusIndeks() , getSeis().getTööalaleJärgnevIndeks()-1);
+
+
+        return ValikuKiirmeetodiTööriistad.leiaLahkmeJärgiJaotamine(getSeis());
     }
 
     @Override

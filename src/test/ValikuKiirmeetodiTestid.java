@@ -1,21 +1,25 @@
 import main.MassiiviSeis;
 import main.MassiiviTööriistad;
+import main.Permutatsioonid;
 import main.ValikuKiirmeetodiMassiiviSeis;
 import main.läbimänguHindajad.ValikuKiirmeetodiLäbimänguHindaja;
 import main.massiivioperatsioonid.LäbimänguAlustamine;
 import main.massiivioperatsioonid.LäbimänguLõpetamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiElementideVahetamine;
+import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiLahkmeJärgiJaotamine;
 import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiLäbimänguAlustamine;
 import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTööalaValimine;
 import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTööriistad;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ValikuKiirmeetodiTestid extends Testid{
 
-    int otsitavateElementideArv = 4;
+    int otsitavateElementideArv = 5;
+    int permutatsioonideArv = 10;
     ValikuKiirmeetodiTestid() {
         this.läbimänguHindaja = new ValikuKiirmeetodiLäbimänguHindaja();
     }
@@ -34,11 +38,31 @@ public class ValikuKiirmeetodiTestid extends Testid{
         List<Massiivioperatsioon> võimalikudKäigud = new ArrayList<>();
 
         võimalikudKäigud.add(new LäbimänguLõpetamine(massiiviSeis));
-
-        List<main.IndeksiteGenereerimine.VahetatavadIndeksid> elementideVahetuseIndeksid = main.IndeksiteGenereerimine.leiaKõikVõimalikudVahetusteIndeksid(massiiviSeis.getMassiiv().length);
-        for (main.IndeksiteGenereerimine.VahetatavadIndeksid indeksitePaar : elementideVahetuseIndeksid) {
-            võimalikudKäigud.add(new ValikuKiirmeetodiElementideVahetamine(indeksitePaar.vahetatav1(), indeksitePaar.vahetatav2(), valikuKiirmeetodiMassiiviSeis, this.otsitavateElementideArv));
+        int[][] massiiviPermutatsioonid = new Permutatsioonid().genereeriPermutatsioonid(valikuKiirmeetodiMassiiviSeis.getMassiiv());
+        for (int[] perm : massiiviPermutatsioonid) {
+            ValikuKiirmeetodiMassiiviSeis uusMassiiviSeis = new ValikuKiirmeetodiMassiiviSeis(perm, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), ((ValikuKiirmeetodiMassiiviSeis) massiiviSeis).getVastusePiir());
+            for (int i = 0; i <= massiiviSeis.getMassiiv().length; i++) {
+                võimalikudKäigud.add(new ValikuKiirmeetodiLahkmeJärgiJaotamine(uusMassiiviSeis, i));
+            }
         }
+
+        /*for (int i = 0; i < permutatsioonideArv; i++) {
+            List<Integer> arvudeList = new ArrayList<Integer>(massiiviSeis.getMassiiv().length);
+            for (int j : massiiviSeis.getMassiiv()) {
+                arvudeList.add(j);
+            }
+            Collections.shuffle(arvudeList);
+            int[] permutatsioon = new int[massiiviSeis.getMassiiv().length];
+            for (int j = 0; j < arvudeList.size(); j++) {
+                permutatsioon[j] = arvudeList.get(j);
+            }
+            ValikuKiirmeetodiMassiiviSeis uusMassiiviSeis = new ValikuKiirmeetodiMassiiviSeis(permutatsioon, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), ((ValikuKiirmeetodiMassiiviSeis) massiiviSeis).getVastusePiir());
+            for (int k = 0; k <= massiiviSeis.getMassiiv().length; k++) {
+                võimalikudKäigud.add(new ValikuKiirmeetodiLahkmeJärgiJaotamine(uusMassiiviSeis, k));
+            }
+
+        }*/
+
 
         List<main.IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = main.IndeksiteGenereerimine.leiaKõikvõimalikudTööalaMuutmiseIndeksid(massiiviSeis.getMassiiv().length);
         for (main.IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
