@@ -34,13 +34,12 @@ public class ValikuKiirmeetodiTööalaValimine extends TööalaValimine {
             return new LäbimänguLõpetamine(getSeis());
         }
 
-
         return ValikuKiirmeetodiTööriistad.leiaLahkmeJärgiJaotamine(getSeis());
     }
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
         return ValikuKiirmeetodiTööriistad.kasEnneTööalaOnAinultVähimadElemendid(getSeis())
-                && ValikuKiirmeetodiTööriistad.kasKõikPiiiristVäiksemadOnTööalasVõiEnneSeda(getSeis());
+                && ValikuKiirmeetodiTööriistad.kasKõikPiiristVäiksemadOnTööalasVõiEnneSeda(getSeis());
     }
 }

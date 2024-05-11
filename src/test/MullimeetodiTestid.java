@@ -26,16 +26,18 @@ public class MullimeetodiTestid extends Testid {
     List<Massiivioperatsioon> kõikvõimalikudKäigud(MassiiviSeis massiiviSeis) {
         List<Massiivioperatsioon> võimalikudKäigud = new ArrayList<>();
 
+        //Läbimängu lõpetamine
         võimalikudKäigud.add(new LäbimänguLõpetamine(massiiviSeis));
 
-
-        List<main.IndeksiteGenereerimine.PisteIndeksid> pisteteIndeksid = main.IndeksiteGenereerimine.leiaKõikVõimalikudPisteIndeksid(massiiviSeis.getMassiiv().length);
-        for (main.IndeksiteGenereerimine.PisteIndeksid indeksitePaar : pisteteIndeksid) {
+        //Piste tegemine
+        List<IndeksiteGenereerimine.PisteIndeksid> pisteteIndeksid = IndeksiteGenereerimine.leiaKõikVõimalikudPisteIndeksid(massiiviSeis.getMassiiv().length);
+        for (IndeksiteGenereerimine.PisteIndeksid indeksitePaar : pisteteIndeksid) {
             võimalikudKäigud.add(new MullimeetodiPiste(indeksitePaar.algus(), indeksitePaar.lõpp(), massiiviSeis));
         }
 
-        List<main.IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = main.IndeksiteGenereerimine.leiaKõikvõimalikudTööalaMuutmiseIndeksid(massiiviSeis.getMassiiv().length);
-        for (main.IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
+        //Tööala valimine
+        List<IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
+        for (IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
             võimalikudKäigud.add(new MullimeetodiTööalaValimine(indeksitePaar.algus(), indeksitePaar.lõpustJärgmine(), massiiviSeis));
         }
         return võimalikudKäigud;

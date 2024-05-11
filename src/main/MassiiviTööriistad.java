@@ -47,15 +47,6 @@ public class MassiiviTööriistad {
         return true;
     }
 
-    public static boolean kasSorteerimata(int[] massiiv) {
-        for (int i = 1; i < massiiv.length; i++) {
-            if(massiiv[i] < massiiv[i-1]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static boolean kasOnÕigedElemendidKuniIndeksini(int[] massiiv, int indeks) {
         //indeks on välja arvatud
         //kas lõplikult sorteeritud massiivis oleks samades kohtades samad elemendid

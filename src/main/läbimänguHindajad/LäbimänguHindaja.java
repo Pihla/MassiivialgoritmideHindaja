@@ -25,7 +25,6 @@ public abstract class LäbimänguHindaja {
             Massiivioperatsioon praeguneKäik = tehtudKäigud.get(i);
 
             if(!praeguneKäik.equals(viimaneKäik.järgmineÕigeKäik())) {
-                //System.out.println("VIGA, olekust " + viimaneKäik + " tehti " + praeguneKäik + " aga oleks pidanud " + viimaneKäik.järgmineÕigeKäik());
 
                 if(praeguneKäik.kasOnVõimalikLäbimänguJätkata()) {
                     //mitteoluline viga
@@ -51,15 +50,14 @@ public abstract class LäbimänguHindaja {
 
     protected abstract int leiaRaskusparameeter(List<Massiivioperatsioon> tehtudKäigud);
     protected int leiaTegelikRaskusparameeter(Massiivioperatsioon esimeneKäik) {
-        //TODO siin kasutada vb test klassi meetodit. vnoh need kokku tõsta
         List<Massiivioperatsioon> käigud = new ArrayList<>();
 
-        Massiivioperatsioon viimaneKäik = esimeneKäik;
-        käigud.add(viimaneKäik);
+        Massiivioperatsioon viimatineKäik = esimeneKäik;
+        käigud.add(viimatineKäik);
 
-        while(!(viimaneKäik instanceof LäbimänguLõpetamine)) {
-            viimaneKäik = viimaneKäik.järgmineÕigeKäik();
-            käigud.add(viimaneKäik);
+        while(!(viimatineKäik instanceof LäbimänguLõpetamine)) {
+            viimatineKäik = viimatineKäik.järgmineÕigeKäik();
+            käigud.add(viimatineKäik);
         }
 
         return leiaRaskusparameeter(käigud);

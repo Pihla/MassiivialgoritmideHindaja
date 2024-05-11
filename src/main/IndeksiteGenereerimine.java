@@ -5,10 +5,10 @@ import java.util.List;
 
 public class IndeksiteGenereerimine {
 
-    public static List<TööalaIndeksid> leiaKõikvõimalikudTööalaMuutmiseIndeksid(int massiiviPikkus) {
+    public static List<TööalaIndeksid> leiaKõikvõimalikudTööalaValimiseIndeksid(int massiiviPikkus) {
         List<TööalaIndeksid> indeksitePaarid = new ArrayList<>();
 
-        //Tööala muutmised eeldusega, et algusindeks < lõpuindeks
+        //Tööala valimised eeldusega, et algusindeks < lõpuindeks
         for (int i = 0; i < massiiviPikkus; i++) {
             for (int j = i; j < massiiviPikkus; j++) {
                 indeksitePaarid.add(new TööalaIndeksid(i, j+1));

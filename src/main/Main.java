@@ -16,6 +16,7 @@ import static main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTöö
 
 public class Main {
     public static void main(String[] args) {
+        //TODO tühjendada
 
         ValikuKiirmeetodiMassiiviSeis msEnne = new ValikuKiirmeetodiMassiiviSeis(new int[]{12, 10, 7, 8, 9, 6, 0}, 0, 7, 4);
         //ValikuKiirmeetodiLäbimänguAlustamine läbimänguAlustamine = new ValikuKiirmeetodiLäbimänguAlustamine(msEnne);
