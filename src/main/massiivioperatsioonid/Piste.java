@@ -33,7 +33,7 @@ public abstract class Piste extends Massiivioperatsioon {
         if(pisteAlgusIndeks>pisteLõpuIndeks) samm = -1;
         else samm = 1;//TODO teha nii et töötaks sellel puhul ka
 
-        int[] massiiv = seis.getMassiiv();
+        int[] massiiv = getSeis().getMassiiv();
         int tõstetavElement = massiiv[pisteAlgusIndeks];
         int praeguneIndeks = pisteAlgusIndeks;
 
@@ -60,6 +60,6 @@ public abstract class Piste extends Massiivioperatsioon {
 
     @Override
     public String toString() {
-        return String.format("Piste indeksilt %d indeksile %d. Massiivi seis peale pistet: %s", this.pisteAlgusIndeks, this.pisteLõpuIndeks, this.seis);
+        return String.format("Piste indeksilt %d indeksile %d. Massiivi seis peale pistet: %s", this.pisteAlgusIndeks, this.pisteLõpuIndeks, this.getSeis());
     }
 }

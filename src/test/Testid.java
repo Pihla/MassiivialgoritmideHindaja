@@ -25,11 +25,18 @@ public abstract class Testid {
 
     @org.junit.jupiter.api.Test
     void korrektneLäbimängTest() {
+        System.out.println("algus");
         for (int i = 0; i < katseteKordusi; i++) {
             List<Massiivioperatsioon> käigud = new ArrayList<>();
 
+            System.out.println("alustan testi.");
             Massiivioperatsioon viimaneKäik = uueLäbimänguAlustamiseOperatsioon();
+            System.out.println("alustan testi. esimene käik on " + viimaneKäik);
             käigud = jätkaLäbimängu(käigud, viimaneKäik);
+
+            for (Massiivioperatsioon massiivioperatsioon : käigud) {
+                //System.out.println(massiivioperatsioon);
+            }
 
             Hindamistulemus hindamistulemus = läbimänguHindaja.hinda(käigud);
             assertEquals(0, hindamistulemus.getValedeKäikudeArv());
@@ -65,16 +72,23 @@ public abstract class Testid {
         //lisab argumendiks antud järgmise käigu ja teeb läbimängu edasi
         List<Massiivioperatsioon> tehtudKäigud = new ArrayList<>(praeguseniTehtudkäigud);
         tehtudKäigud.add(järgmineKäik);
+        //System.out.println(järgmineKäik);
 
         Massiivioperatsioon viimaneKäik = järgmineKäik;
         if(!viimaneKäik.kasOnVõimalikLäbimänguJätkata()) { //TODO kontrollida kas seda on ikka vaja. vb while-ga jõuaks ka läbimängu lõpetamiseni
-            tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getSeis()));
+            if(!(viimaneKäik instanceof LäbimänguLõpetamine)) {
+                tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getSeis()));
+            }
             //System.out.println("ei ole võimalik läbimängu järkata");
             return tehtudKäigud;
         }
         //System.out.println("on võimalik läbimängu jätkata");
         while(!(viimaneKäik instanceof LäbimänguLõpetamine)) {
             viimaneKäik = viimaneKäik.järgmineÕigeKäik();
+            if(!(viimaneKäik instanceof LäbimänguLõpetamine)
+            && !viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {
+                throw new RuntimeException("läbimängu jätkamine peaks peale õiget käiku olema võimalik" + viimaneKäik);
+            }
             //System.out.println(viimaneKäik);
             tehtudKäigud.add(viimaneKäik);
         }
@@ -120,6 +134,7 @@ public abstract class Testid {
             boolean esinebMitteolulineViga = false;
             boolean esinebLahendusOodatudRaskusparameetriga = false;
             boolean esinebLahendusMitteOodatudRaskusparameetriga = false;
+            boolean esinebLahendusMisSaiPunkte = false;
 
             List<Massiivioperatsioon> õigedKäigud = new ArrayList<>();
 
@@ -127,9 +142,15 @@ public abstract class Testid {
             õigedKäigud.add(viimaneKäik);
             Massiivioperatsioon järgmineÕigeKäik;
 
+            System.out.println("=====");
+            System.out.println("praegu tehtud käigud on: ");
+            for (int j = 0; j < õigedKäigud.size(); j++) {
+                System.out.println(j + ". " + õigedKäigud.get(i));
+            }
+            System.out.println("----");
             while(!(viimaneKäik instanceof LäbimänguLõpetamine)) {//teen järjest õigeid käike
-                System.out.println("----");
-                System.out.println("----");
+                //System.out.println("----");
+                //System.out.println("----");
                 järgmineÕigeKäik = viimaneKäik.järgmineÕigeKäik();
                 System.out.println("õige käik oleks " + järgmineÕigeKäik);
                 List<Massiivioperatsioon> võimalikudKäigud = kõikvõimalikudKäigud(viimaneKäik.getSeis());
@@ -137,9 +158,9 @@ public abstract class Testid {
                 //peale iga õige käigu tegemist vaatan läbi kõik variandid, kus teen nüüd vale käigu ja jälle edasi õigesti
                 int õigeidKäikeVõimalikeKäikudeSeas = 0;
                 for (Massiivioperatsioon võimalikKäik : võimalikudKäigud) {
-                    System.out.println(võimalikKäik);
+                    //System.out.println(võimalikKäik);
                     if(võimalikKäik.equals(järgmineÕigeKäik)) {
-                        System.out.println("käik " + võimalikKäik + " on sama kui õige käik " + järgmineÕigeKäik);
+                        //System.out.println("käik " + võimalikKäik + " on sama kui õige käik " + järgmineÕigeKäik);
                         õigeidKäikeVõimalikeKäikudeSeas++;
                         continue;
                     }
@@ -153,11 +174,12 @@ public abstract class Testid {
                     assertEquals(1, hindamistulemus.getValedeKäikudeArv());
                     assertTrue(hindamistulemus.arvutaPunktid() < 1);
 
-                    /*System.out.println("---algus");
+                    System.out.println("mina teen hoopis käigud: \n---algus");
                     for (Massiivioperatsioon massiivioperatsioon : lõpuniJärjestamine1Veaga) {
                         System.out.println(massiivioperatsioon);
                     }
-                    System.out.println("---lõpp");*/
+                    System.out.println(hindamistulemus);
+                    System.out.println("---lõpp");
 
                     if(hindamistulemus.getOluliseVeaIndeks() == null) {
                         esinebOlulineViga = true;
@@ -175,6 +197,9 @@ public abstract class Testid {
                     else {
                         esinebLahendusMitteOodatudRaskusparameetriga = true;
                     }
+                    if(hindamistulemus.arvutaPunktid() != 0) {
+                        esinebLahendusMisSaiPunkte = true;
+                    }
                 }
                 assertEquals(1, õigeidKäikeVõimalikeKäikudeSeas);
                 //jätkan algse käikude listi õigesti täitmist
@@ -187,6 +212,7 @@ public abstract class Testid {
             assertTrue(esinebMitteolulineViga);
             assertTrue(esinebLahendusOodatudRaskusparameetriga);
             assertTrue(esinebLahendusMitteOodatudRaskusparameetriga);
+            assertTrue(esinebLahendusMisSaiPunkte);
         }
     }
 

@@ -11,8 +11,8 @@ public abstract class TööalaValimine extends Massiivioperatsioon {
         if(uusTööalaAlgus >= uusTööalaleJärgnevIndeks) {
             throw new RuntimeException("Tööala algus peab asuma tööala lõpust eespool");
         }
-        this.seis.setTööalaAlgusIndeks(uusTööalaAlgus);
-        this.seis.setTööalaleJärgnevIndeks(uusTööalaleJärgnevIndeks);
+        this.getSeis().setTööalaAlgusIndeks(uusTööalaAlgus);
+        this.getSeis().setTööalaleJärgnevIndeks(uusTööalaleJärgnevIndeks);
     }
 
     @Override
@@ -25,12 +25,12 @@ public abstract class TööalaValimine extends Massiivioperatsioon {
             return false;
         }
 
-        return Objects.equals(this.seis.getTööalaAlgusIndeks(), tööalaValimine.seis.getTööalaAlgusIndeks())
-                && Objects.equals(this.seis.getTööalaleJärgnevIndeks(), tööalaValimine.seis.getTööalaleJärgnevIndeks());
+        return Objects.equals(this.getSeis().getTööalaAlgusIndeks(), tööalaValimine.getSeis().getTööalaAlgusIndeks())
+                && Objects.equals(this.getSeis().getTööalaleJärgnevIndeks(), tööalaValimine.getSeis().getTööalaleJärgnevIndeks());
     }
 
     @Override
     public String toString() {
-        return "Tööala valimine "+ seis.getTööalaAlgusIndeks() + ", " + seis.getTööalaleJärgnevIndeks()+". Uus tööala: " + this.seis;
+        return "Tööala valimine "+ getSeis().getTööalaAlgusIndeks() + ", " + getSeis().getTööalaleJärgnevIndeks()+". Uus tööala: " + this.getSeis();
     }
 }

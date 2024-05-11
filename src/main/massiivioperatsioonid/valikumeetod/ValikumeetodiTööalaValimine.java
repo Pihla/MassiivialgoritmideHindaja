@@ -13,6 +13,7 @@ public class ValikumeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
+        System.out.println("otsin järgmist õiget käiku peala tööala valimist ");
         if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {
             return new LäbimänguLõpetamine(getSeis());
         }

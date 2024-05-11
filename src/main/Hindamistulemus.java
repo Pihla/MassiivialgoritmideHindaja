@@ -55,6 +55,10 @@ public class Hindamistulemus {
         int õigeidKäike = käikudeArv-valedeKäikudeArv;
         double õigeteKäikudeOsakaal = 1.0*õigeidKäike/käikudeArv;
         double raskuseSuhtelineHinnang = 1.0*raskusparameeter/oodatudRaskusparameeter;
+        if(oodatudRaskusparameeter == 0) {
+            raskuseSuhtelineHinnang = 1;
+            System.out.println("oodatud raskusparameeter oli 0");
+        }
         raskuseSuhtelineHinnang = Math.min(raskuseSuhtelineHinnang, 1);
 
         return õigeteKäikudeOsakaal * raskuseSuhtelineHinnang;

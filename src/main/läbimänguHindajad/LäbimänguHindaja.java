@@ -51,6 +51,7 @@ public abstract class LäbimänguHindaja {
 
     protected abstract int leiaRaskusparameeter(List<Massiivioperatsioon> tehtudKäigud);
     protected int leiaTegelikRaskusparameeter(Massiivioperatsioon esimeneKäik) {
+        //TODO siin kasutada vb test klassi meetodit. vnoh need kokku tõsta
         List<Massiivioperatsioon> käigud = new ArrayList<>();
 
         Massiivioperatsioon viimaneKäik = esimeneKäik;

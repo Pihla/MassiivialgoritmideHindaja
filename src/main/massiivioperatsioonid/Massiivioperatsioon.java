@@ -8,11 +8,16 @@ public abstract class Massiivioperatsioon {
     public MassiiviSeis getSeis() {
         return seis;
     }
+
+    public void setSeis(MassiiviSeis seis) {
+        this.seis = seis;
+    }
+
     public abstract Massiivioperatsioon järgmineÕigeKäik();
     public abstract boolean kasOnVõimalikLäbimänguJätkata();
 
     public Massiivioperatsioon(MassiiviSeis massiivEnneOperatsiooni) {
-        this.seis = massiivEnneOperatsiooni.teeKoopia();
+        this.setSeis(massiivEnneOperatsiooni.teeKoopia());
     }
     @Override
     public abstract String toString();

@@ -12,8 +12,12 @@ public class ValikuKiirmeetodiTööriistad {
     public static Massiivioperatsioon leiaJärgmineÕigeKäik(ValikuKiirmeetodiMassiiviSeis massiiviSeis, int lahe, int otsingualaEsimeneElement, int otsingualaViimaneElement) {
         //esimene ja viimane element kaasa arvatud otsingualasse
 
+        if(MassiiviTööriistad.kasTööalaValimata(massiiviSeis)) {
+            return new ValikuKiirmeetodiTööalaValimine(0, massiiviSeis.getMassiiv().length, massiiviSeis);
+        }
+
         //hakkan paremalt otsima lahkmest väiksemat elementi
-        for (int i = otsingualaViimaneElement; i > otsingualaEsimeneElement; i--) {
+        for (int i = otsingualaViimaneElement; i >= otsingualaEsimeneElement; i--) {
             //kui otsingualas leidub lahkmest väiksem element
             if(massiiviSeis.getMassiiv()[i] < lahe) {
                 //hakkan vasakult otsima lahkmest suuremat elementi (kuni praeguse elemendini)
@@ -27,17 +31,26 @@ public class ValikuKiirmeetodiTööriistad {
                 return leiaTööalaMuutmineVõiLäbimänguLõpetamine(massiiviSeis, i+1);
             }
         }
-        //kõik tööala elemendid on lahkmest suuremad
+
+        //kõik otsinguala elemendid on lahkmest suuremad
+
+        //kui eelmine käik oli tööala muutmine
+        if(massiiviSeis.getTööalaAlgusIndeks() == otsingualaEsimeneElement && massiiviSeis.getTööalaleJärgnevIndeks() == otsingualaViimaneElement+1) {
+            return new ValikuKiirmeetodiTööalaValimine(massiiviSeis.getTööalaAlgusIndeks()+1, massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis);
+        }
+        //kui eelmine käik oli kahe elemendi vahetus
         return leiaTööalaMuutmineVõiLäbimänguLõpetamine(massiiviSeis, otsingualaEsimeneElement);
     }
 
     public static Massiivioperatsioon leiaTööalaMuutmineVõiLäbimänguLõpetamine(ValikuKiirmeetodiMassiiviSeis massiiviSeis, int esimeneLahkmestSuuremElement) {
+        //System.out.println("lahkmest suurme esimene "+esimeneLahkmestSuuremElement);
+        //System.out.println("vastsue piir "+massiiviSeis.getVastusePiir());
         if(esimeneLahkmestSuuremElement == massiiviSeis.getVastusePiir()) {
             return new LäbimänguLõpetamine(massiiviSeis);
         }
-        //TODO otsustada kas järgmist lõiku on vaja
-        if(MassiiviTööriistad.kasTööalaValimata(massiiviSeis)) {
-            return new ValikuKiirmeetodiTööalaValimine(0, massiiviSeis.getMassiiv().length, massiiviSeis);
+        //System.out.println(massiiviSeis.getTööalaleJärgnevIndeks() + " tööala järnev ja algus indes" + massiiviSeis.getTööalaAlgusIndeks());
+        if(massiiviSeis.getTööalaleJärgnevIndeks() - massiiviSeis.getTööalaAlgusIndeks() == 1) {
+            return new LäbimänguLõpetamine(massiiviSeis);
         }
         if(esimeneLahkmestSuuremElement > massiiviSeis.getVastusePiir()) {
             return new ValikuKiirmeetodiTööalaValimine(massiiviSeis.getTööalaAlgusIndeks(), esimeneLahkmestSuuremElement, massiiviSeis);
@@ -74,6 +87,9 @@ public class ValikuKiirmeetodiTööriistad {
     }
 
     public static boolean kasKõikPiiiristVäiksemadOnTööalasVõiEnneSeda(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
+        if(massiiviSeis.getTööalaleJärgnevIndeks() < massiiviSeis.getVastusePiir()) {
+            return false;
+        }
         int[] tööalaJaEelnevad = leiaEsimesedElemendidSorteeritult(massiiviSeis, massiiviSeis.getTööalaleJärgnevIndeks());
 
         int[] algneMassiiv = Arrays.copyOf(massiiviSeis.getMassiiv(), massiiviSeis.getMassiiv().length);

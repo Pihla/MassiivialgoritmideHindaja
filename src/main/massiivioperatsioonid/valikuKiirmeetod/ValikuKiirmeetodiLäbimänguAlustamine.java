@@ -1,25 +1,34 @@
 package main.massiivioperatsioonid.valikuKiirmeetod;
 
+import main.MassiiviSeis;
 import main.ValikuKiirmeetodiMassiiviSeis;
 import main.massiivioperatsioonid.LäbimänguAlustamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.valikumeetod.ValikumeetodiTööalaValimine;
 
 public class ValikuKiirmeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
     public ValikuKiirmeetodiLäbimänguAlustamine(ValikuKiirmeetodiMassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
-        this.seis = massiivEnneOperatsiooni.teeKoopia();//TODO vb võtta ära
     }
 
-    ValikuKiirmeetodiMassiiviSeis seis;
+    ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis;
     @Override
     public ValikuKiirmeetodiMassiiviSeis getSeis() {
-        return seis;
+        return valikuKiirmeetodiMassiiviSeis;
+    }
+
+    @Override
+    public void setSeis(MassiiviSeis seis) {
+        if(seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
+            this.valikuKiirmeetodiMassiiviSeis = uusSeis;
+        }
+        else {
+            throw new RuntimeException("valikukiirmeetodi seis peab olema valikukiirmeetodiseisu isend");
+        }
     }
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        return new ValikumeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
+        return new ValikuKiirmeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
     }
 
     @Override

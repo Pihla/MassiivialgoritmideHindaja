@@ -27,6 +27,7 @@ public class MassiiviTööriistad {
                 vähimaVäärtus = massiiviSeis.getMassiiv()[vähimaIndeks];
             }
         }
+        System.out.println("leidsin et vähim on indeksil " + vähimaIndeks);
         return vähimaIndeks;
     }
     public static int[] kopeeriJaSorteeriMassiiv(int[] massiiv) {
