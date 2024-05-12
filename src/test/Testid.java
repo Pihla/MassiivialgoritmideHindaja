@@ -13,15 +13,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static main.MassiiviTööriistad.jätkaLäbimängu;
+import static main.MassiiviTööriistad.kasÕigeTulemus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class Testid {
-    //kommi
-    Random random = new Random(2);
+    //kommentaar
+    Random random = new Random(3);
     LäbimänguHindaja läbimänguHindaja;
-    int katseteKordusi = 1;
-    int massiivisElemente = 3;
+    int katseteKordusi = 100;
+    int massiivisElemente = 7;
     int maxJuhuslikVäärtus = 20;
 
 
@@ -39,7 +41,7 @@ public abstract class Testid {
 
             MassiiviSeis algoritmiTulemus = käigud.get(käigud.size() - 1).getSeis();
 
-            if (kasValeTulemus(algoritmiTulemus)) {
+            if (!kasÕigeTulemus(algoritmiTulemus)) {
                 throw new RuntimeException(String.format("Viga massiivi %s ümber järjestamisel", käigud.get(0).getSeis()));
             }
         }
@@ -57,38 +59,6 @@ public abstract class Testid {
     abstract LäbimänguAlustamine uueLäbimänguAlustamiseOperatsioon();
 
     abstract List<Massiivioperatsioon> kõikvõimalikudKäigud(MassiiviSeis massiiviSeis);
-
-    List<Massiivioperatsioon> jätkaLäbimängu(List<Massiivioperatsioon> praeguseniTehtudkäigud, Massiivioperatsioon järgmineKäik) {
-        //lisab argumendiks antud järgmise käigu ja teeb läbimängu edasi õigesti, kui see on võimalik
-        List<Massiivioperatsioon> tehtudKäigud = new ArrayList<>(praeguseniTehtudkäigud);
-        tehtudKäigud.add(järgmineKäik);
-
-        Massiivioperatsioon viimaneKäik = järgmineKäik;
-        if (!viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {
-            if (!(viimaneKäik instanceof LäbimänguLõpetamine)) {
-                tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getSeis()));
-            }
-            return tehtudKäigud;
-        }
-        while (!(viimaneKäik instanceof LäbimänguLõpetamine)) {
-            viimaneKäik = viimaneKäik.järgmineÕigeKäik();
-            if (!(viimaneKäik instanceof LäbimänguLõpetamine)
-                    && !viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {
-                throw new RuntimeException("läbimängu jätkamine peaks peale õiget käiku olema võimalik. viimane käik oli" + viimaneKäik);
-            }
-            tehtudKäigud.add(viimaneKäik);
-        }
-        return tehtudKäigud;
-    }
-
-    boolean kasValeTulemus(MassiiviSeis massiiviSeis) {
-        //valiku kiirmeetodi puhul hindab kas on vähimad elemendid ees. muul juhul kas on sorteeritud.
-        if (massiiviSeis instanceof ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis) {
-            return ValikuKiirmeetodiTööriistad.kasVähimadElemendidPoleEes(valikuKiirmeetodiMassiiviSeis);
-        }
-
-        return !MassiiviTööriistad.kasVahemikOnSorteeritud(massiiviSeis.getMassiiv(), 0, massiiviSeis.getMassiiv().length);
-    }
 
 
     @org.junit.jupiter.api.Test
@@ -127,11 +97,15 @@ public abstract class Testid {
                     if (hindamistulemus.getOluliseVeaIndeks() == null) {
                         esinebMitteolulineViga = true;
                         MassiiviSeis algoritmiTulemus1Veaga = lõpuniJärjestamine1Veaga.get(lõpuniJärjestamine1Veaga.size() - 1).getSeis();
-                        if (kasValeTulemus(algoritmiTulemus1Veaga)) {
+                        if (!kasÕigeTulemus(algoritmiTulemus1Veaga)) {
                             throw new RuntimeException(String.format("Viga massiivi %s ümber järjestamisel: %s on vale tulemus", lõpuniJärjestamine1Veaga.get(0).getSeis(), Arrays.toString(algoritmiTulemus1Veaga.getMassiiv())));
                         }
                     } else {
                         esinebOlulineViga = true;
+                        MassiiviSeis algoritmiTulemus1Veaga = lõpuniJärjestamine1Veaga.get(lõpuniJärjestamine1Veaga.size() - 1).getSeis();
+                        if (kasÕigeTulemus(algoritmiTulemus1Veaga)) {
+                            throw new RuntimeException(String.format("Massiivi %s ümber järjestamisel saadi õige tulemus, kuigi kirjas o oluline viga", lõpuniJärjestamine1Veaga.get(0).getSeis()));
+                        }
                     }
                     if (hindamistulemus.getRaskusparameeter() == hindamistulemus.getOodatudRaskusparameeter()) {
                         esinebLahendusOodatudRaskusparameetriga = true;

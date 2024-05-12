@@ -17,7 +17,7 @@ public abstract class LahkmeJärgiJaotamine extends Massiivioperatsioon{
 
     @Override
     public String toString() {
-        return String.format("Lahkme järgi jaotamine. Massiivi seis peale lahkme järgi jaotamist: %s, praegune piir on %d", this.getSeis(), this.lahkmeJärgiJaotamisePiiristJärgnevIndeks);
+        return String.format("Lahkme järgi jaotamine. Massiivi seis peale lahkme järgi jaotamist: %s, piir lahkmest suuremate ja väiksemate elementide vahel on indeksil %d", this.getSeis(), this.lahkmeJärgiJaotamisePiiristJärgnevIndeks);
     }
 
     @Override
@@ -30,9 +30,7 @@ public abstract class LahkmeJärgiJaotamine extends Massiivioperatsioon{
             return false;
         }
 
-        //TODO vaadata üle kas see on ikka hea alus võrdlemiseks
         return this.lahkmeJärgiJaotamisePiiristJärgnevIndeks == lahkmeJärgiJaotamine.getLahkmeJärgiJaotamisePiiristJärgnevIndeks()
-                &&
-                Arrays.equals(this.getSeis().getMassiiv(), lahkmeJärgiJaotamine.getSeis().getMassiiv());
+                && Arrays.equals(this.getSeis().getMassiiv(), lahkmeJärgiJaotamine.getSeis().getMassiiv());
     }
 }

@@ -16,7 +16,7 @@ public class PistemeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(this.getSeis().getTööalaleJärgnevIndeks() > 1
+        if(this.getSeis().getTööalaleJärgnevIndeks() - this.getSeis().getTööalaAlgusIndeks() >= 2
                 && this.getSeis().getMassiiv()[this.getSeis().getTööalaleJärgnevIndeks()-1] <
                 this.getSeis().getMassiiv()[this.getSeis().getTööalaleJärgnevIndeks()-2]) {
 
@@ -37,7 +37,7 @@ public class PistemeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
+        if(MassiiviTööriistad.esinevadValedElemendidEnneIndeksit(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
             return false;
         }
         return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks()-1);

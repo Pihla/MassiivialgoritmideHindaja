@@ -1,7 +1,13 @@
 package main;
 
 
+import main.massiivioperatsioonid.LäbimänguLõpetamine;
+import main.massiivioperatsioonid.Massiivioperatsioon;
+import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTööriistad;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MassiiviTööriistad {
     public static boolean kasTööalaValimata(MassiiviSeis massiiviSeis) {
@@ -34,7 +40,39 @@ public class MassiiviTööriistad {
         Arrays.sort(koopiaMassiiv);
         return koopiaMassiiv;
     }
+    public static boolean kasÕigeTulemus(MassiiviSeis massiiviSeis) {
+        //valiku kiirmeetodi puhul hindab kas on vähimad elemendid ees. muul juhul kas on sorteeritud.
+        if (massiiviSeis instanceof ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis) {
+            return ValikuKiirmeetodiTööriistad.kasVähimadElemendidOnEes(valikuKiirmeetodiMassiiviSeis);
+        }
 
+        return MassiiviTööriistad.kasVahemikOnSorteeritud(massiiviSeis.getMassiiv(), 0, massiiviSeis.getMassiiv().length);
+    }
+
+    //TODO tõsta see mujale
+    public static List<Massiivioperatsioon> jätkaLäbimängu(List<Massiivioperatsioon> praeguseniTehtudkäigud, Massiivioperatsioon järgmineKäik) {
+        //lisab argumendiks antud järgmise käigu ja teeb läbimängu edasi õigesti, kui see on võimalik
+        List<Massiivioperatsioon> tehtudKäigud = new ArrayList<>(praeguseniTehtudkäigud);
+        tehtudKäigud.add(järgmineKäik);
+
+        Massiivioperatsioon viimaneKäik = järgmineKäik;
+        if (!viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {
+            if (!(viimaneKäik instanceof LäbimänguLõpetamine)) {
+                tehtudKäigud.add(new LäbimänguLõpetamine(viimaneKäik.getSeis()));
+            }
+            return tehtudKäigud;
+        }
+        while (!(viimaneKäik instanceof LäbimänguLõpetamine)) {
+            viimaneKäik = viimaneKäik.järgmineÕigeKäik();
+            if (!(viimaneKäik instanceof LäbimänguLõpetamine)
+                    && !viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {
+                System.out.println(tehtudKäigud.get(2).kasOnVõimalikLäbimänguJätkata());
+                throw new RuntimeException("läbimängu jätkamine peaks peale õiget käiku olema võimalik. viimane käik oli" + viimaneKäik);
+            }
+            tehtudKäigud.add(viimaneKäik);
+        }
+        return tehtudKäigud;
+    }
 
     public static boolean kasVahemikOnSorteeritud(int[] massiiv, int algusIndeks, int lõpuIndeks) {
         //kas antud vahemik on sorteeritud
@@ -47,14 +85,14 @@ public class MassiiviTööriistad {
         return true;
     }
 
-    public static boolean kasOnÕigedElemendidKuniIndeksini(int[] massiiv, int indeks) {
+    public static boolean esinevadValedElemendidEnneIndeksit(int[] massiiv, int indeks) {
         //indeks on välja arvatud
         //kas lõplikult sorteeritud massiivis oleks samades kohtades samad elemendid
         int[] sorteeritudMassiiv = kopeeriJaSorteeriMassiiv(massiiv);
         for (int i = 0; i < indeks; i++) {
-            if(sorteeritudMassiiv[i] != massiiv[i]) return false;
+            if(sorteeritudMassiiv[i] != massiiv[i]) return true;
         }
-        return true;
+        return false;
     }
 }
 

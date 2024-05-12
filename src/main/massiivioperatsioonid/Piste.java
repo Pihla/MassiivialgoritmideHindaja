@@ -26,8 +26,6 @@ public abstract class Piste extends Massiivioperatsioon {
     }
 
     private void teePiste() {
-        //TODO muuta ilusamaks
-
         int samm;
 
         if(pisteAlgusIndeks>pisteLõpuIndeks) samm = -1;

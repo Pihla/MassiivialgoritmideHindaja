@@ -28,7 +28,7 @@ public class PistemeetodiPiste extends Piste {
         if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return true;
         }
-        if(!MassiiviTööriistad.kasOnÕigedElemendidKuniIndeksini(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
+        if(MassiiviTööriistad.esinevadValedElemendidEnneIndeksit(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
             return false;
         }
         return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks());

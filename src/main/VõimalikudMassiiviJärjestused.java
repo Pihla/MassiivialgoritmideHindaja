@@ -1,11 +1,34 @@
-package tööriistad;
+package main;
 
 import java.util.*;
 
 public class VõimalikudMassiiviJärjestused {
+
+    public int[][] leiaVõimalikudJärjestused2(int[] m) {//seda kasutades ei ole garanteeritud, et lahkme järgi jaotamisel on õige tulemus ka olemas
+        int järjestusteArv = 10;
+        int[][] järjestused = new int[järjestusteArv][];
+
+        for (int i = 0; i < järjestusteArv; i++) {
+            List<Integer> arvudeList = new ArrayList<Integer>(m.length);
+            for (int j : m) {
+                arvudeList.add(j);
+            }
+            Collections.shuffle(arvudeList);
+            int[] järjestus = new int[m.length];
+            for (int j = 0; j < arvudeList.size(); j++) {
+                järjestus[j] = arvudeList.get(j);
+            }
+            järjestused[i] = järjestus;
+        }
+        return järjestused;
+    }
+
+
+
     private List<List<Integer>> järjestused;
 
-    public int[][] leiaVõimalikudJärjestused(int[] m) {
+    public int[][] leiaVõimalikudJärjestused(int[] m) {//seda kasutades jookseb test üsna kaua. kui massiivi pikkus on üle 7, ei tööta see mõistliku ajaga
+
         //TODO vb paremini teha
         järjestused = new ArrayList<>();
 

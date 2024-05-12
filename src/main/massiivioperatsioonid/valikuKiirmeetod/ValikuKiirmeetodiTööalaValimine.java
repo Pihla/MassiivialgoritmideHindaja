@@ -1,6 +1,7 @@
 package main.massiivioperatsioonid.valikuKiirmeetod;
 
 import main.MassiiviSeis;
+import main.MassiiviTööriistad;
 import main.ValikuKiirmeetodiMassiiviSeis;
 import main.massiivioperatsioonid.LäbimänguLõpetamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
@@ -30,7 +31,7 @@ public class ValikuKiirmeetodiTööalaValimine extends TööalaValimine {
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
         int oodatavPikkus = getSeis().getVastusePiir();
-        if(getSeis().getTööalaAlgusIndeks() == oodatavPikkus) {//TODO konstrollida kas selline ais on loogiline
+        if(getSeis().getTööalaAlgusIndeks() == oodatavPikkus) {//see on võimalik ainult siis, kui praegune samm oli vale
             return new LäbimänguLõpetamine(getSeis());
         }
 
@@ -39,6 +40,10 @@ public class ValikuKiirmeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
+        if(getSeis().getVastusePiir() <= getSeis().getTööalaAlgusIndeks()
+                || getSeis().getVastusePiir() >= getSeis().getTööalaleJärgnevIndeks()) {//TODO kontrollida if
+            return MassiiviTööriistad.kasÕigeTulemus(getSeis());
+        }
         return ValikuKiirmeetodiTööriistad.kasEnneTööalaOnAinultVähimadElemendid(getSeis())
                 && ValikuKiirmeetodiTööriistad.kasKõikPiiristVäiksemadOnTööalasVõiEnneSeda(getSeis());
     }

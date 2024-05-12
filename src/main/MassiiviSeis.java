@@ -49,7 +49,7 @@ public class MassiiviSeis {
             }
             if(!MassiiviTööriistad.kasTööalaValimata(this) && (i == this.tööalaAlgusIndeks || i == this.tööalaleJärgnevIndeks)) {
                 sb.append("|");
-                if(i != this.massiiv.length - 1) {
+                if(i != this.massiiv.length - 1 || i == this.tööalaAlgusIndeks) {
                     sb.append(" ");
                 }
             }

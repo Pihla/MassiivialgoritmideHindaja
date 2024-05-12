@@ -1,6 +1,7 @@
 package main.läbimänguHindajad;
 
 import main.Hindamistulemus;
+import main.MassiiviTööriistad;
 import main.massiivioperatsioonid.LäbimänguAlustamine;
 import main.massiivioperatsioonid.LäbimänguLõpetamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
@@ -26,14 +27,17 @@ public abstract class LäbimänguHindaja {
 
             if(!praeguneKäik.equals(viimaneKäik.järgmineÕigeKäik())) {
 
-                if(praeguneKäik.kasOnVõimalikLäbimänguJätkata()) {
+                //kui läbimängu on võimalik jätkata või praegune käik on läbimängu lõpetamine ja tulemus on õige
+                if(praeguneKäik.kasOnVõimalikLäbimänguJätkata()
+                    || (praeguneKäik instanceof LäbimänguLõpetamine && MassiiviTööriistad.kasÕigeTulemus(praeguneKäik.getSeis()))) {
+
                     //mitteoluline viga
                     hindamistulemus.suurendaValedeKäikudeArvu();
                 }
                 else {
                     //oluline viga
                     hindamistulemus.setOlulineViga(i);
-                    hindamistulemus.setKäikudeArv(hindamistulemus.getOluliseVeaIndeks()); //kõigi käikude arv kuni praeguseni
+                    hindamistulemus.setKäikudeArv(i); //kõigi käikude arv kuni praeguseni
                     hindamistulemus.suurendaValedeKäikudeArvu();
                     break;
                 }

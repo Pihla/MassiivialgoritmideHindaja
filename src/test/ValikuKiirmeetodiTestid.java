@@ -1,6 +1,6 @@
 import main.MassiiviSeis;
 import main.IndeksiteGenereerimine;
-import tööriistad.VõimalikudMassiiviJärjestused;
+import main.VõimalikudMassiiviJärjestused;
 import main.ValikuKiirmeetodiMassiiviSeis;
 import main.läbimänguHindajad.ValikuKiirmeetodiLäbimänguHindaja;
 import main.massiivioperatsioonid.LäbimänguAlustamine;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ValikuKiirmeetodiTestid extends Testid{
 
-    int otsitavateElementideArv = 2;
+    int otsitavateElementideArv = 3;
     ValikuKiirmeetodiTestid() {
         this.läbimänguHindaja = new ValikuKiirmeetodiLäbimänguHindaja();
     }

@@ -7,16 +7,12 @@ public class Hindamistulemus {
     private int raskusparameeter;
     private int oodatudRaskusparameeter;
 
-    //TODO vaadata üle kas selle klassi kasutamine on loogiline
     public Hindamistulemus(int käikudeArv) {
         this.käikudeArv = käikudeArv;
     }
 
     public void suurendaValedeKäikudeArvu() {
         this.valedeKäikudeArv += 1;
-    }
-    public int getKäikudeArv() {
-        return käikudeArv;
     }
 
     public int getValedeKäikudeArv() {

@@ -37,6 +37,10 @@ public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamin
             return new ValikuKiirmeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
 
+        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult siis, kui varem tehti viga
+            return new LäbimänguLõpetamine(getSeis());
+        }
+
         int praegunePikkus = this.getLahkmeJärgiJaotamisePiiristJärgnevIndeks();
         int oodatavPikkus = getSeis().getVastusePiir();
         if(praegunePikkus == oodatavPikkus) {
@@ -55,8 +59,8 @@ public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamin
         }
         Massiivioperatsioon järgmineÕigeKäik = järgmineÕigeKäik();
 
-        return (järgmineÕigeKäik instanceof LäbimänguLõpetamine && !ValikuKiirmeetodiTööriistad.kasVähimadElemendidPoleEes(valikuKiirmeetodiMassiiviSeis)
-                )||
-                järgmineÕigeKäik.kasOnVõimalikLäbimänguJätkata();//TODO vb midagi paremat mõelda
+        return (järgmineÕigeKäik instanceof LäbimänguLõpetamine
+                && ValikuKiirmeetodiTööriistad.kasVähimadElemendidOnEes(valikuKiirmeetodiMassiiviSeis))
+                || järgmineÕigeKäik.kasOnVõimalikLäbimänguJätkata();
     }
 }

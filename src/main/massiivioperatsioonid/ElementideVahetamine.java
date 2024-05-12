@@ -2,25 +2,18 @@ package main.massiivioperatsioonid;
 
 import main.MassiiviSeis;
 
-public abstract class ElementideVahetamine extends Massiivioperatsioon{
+public abstract class ElementideVahetamine extends Massiivioperatsioon {
     int vasakpoolseElemendiIndeks;
     int parempoolseElemendiIndeks;
+
     public ElementideVahetamine(int üheVahetatavaIndeks, int teiseVahetatavaIndeks, MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
-        if(üheVahetatavaIndeks == teiseVahetatavaIndeks) {
+        if (üheVahetatavaIndeks == teiseVahetatavaIndeks) {
             throw new RuntimeException("Vahetatavad elemendid peavad olema erinevad");
         }
         this.vasakpoolseElemendiIndeks = Math.min(üheVahetatavaIndeks, teiseVahetatavaIndeks);
         this.parempoolseElemendiIndeks = Math.max(üheVahetatavaIndeks, teiseVahetatavaIndeks);
         teeVahetus();
-    }
-
-    public int getVasakpoolseElemendiIndeks() {
-        return vasakpoolseElemendiIndeks;
-    }
-
-    public int getParempoolseElemendiIndeks() {
-        return parempoolseElemendiIndeks;
     }
 
     private void teeVahetus() {

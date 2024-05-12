@@ -3,6 +3,7 @@ package main.massiivioperatsioonid.valikumeetod;
 import main.MassiiviSeis;
 import main.MassiiviTööriistad;
 import main.massiivioperatsioonid.ElementideVahetamine;
+import main.massiivioperatsioonid.LäbimänguLõpetamine;
 import main.massiivioperatsioonid.Massiivioperatsioon;
 
 public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
@@ -14,6 +15,9 @@ public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
     public Massiivioperatsioon järgmineÕigeKäik() {
         if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
             return new ValikumeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
+        }
+        if(getSeis().getTööalaleJärgnevIndeks()- getSeis().getTööalaAlgusIndeks() == 1) {
+            return new LäbimänguLõpetamine(getSeis());
         }
         return new ValikumeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
     }
