@@ -1,12 +1,14 @@
 package main;
 
-import main.läbimänguHindajad.*;
-import main.massiivioperatsioonid.LäbimänguAlustamine;
-import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.mullimeetod.MullimeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.pistemeetod.PistemeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.valikumeetod.ValikumeetodiLäbimänguAlustamine;
+import main.massiiviSeis.MassiiviSeis;
+import main.massiiviSeis.ValikuKiirmeetodiMassiiviSeis;
+import main.läbimänguHindaja.*;
+import main.massiivioperatsioon.LäbimänguAlustamine;
+import main.massiivioperatsioon.Massiivioperatsioon;
+import main.massiivioperatsioon.mullimeetod.MullimeetodiLäbimänguAlustamine;
+import main.massiivioperatsioon.pistemeetod.PistemeetodiLäbimänguAlustamine;
+import main.massiivioperatsioon.valikuKiirmeetod.ValikuKiirmeetodiLäbimänguAlustamine;
+import main.massiivioperatsioon.valikumeetod.ValikumeetodiLäbimänguAlustamine;
 
 import java.util.ArrayList;
 import java.util.List;

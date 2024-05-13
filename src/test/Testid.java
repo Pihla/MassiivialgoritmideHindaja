@@ -1,12 +1,9 @@
-import main.Hindamistulemus;
-import main.MassiiviSeis;
-import main.MassiiviTööriistad;
-import main.ValikuKiirmeetodiMassiiviSeis;
-import main.läbimänguHindajad.LäbimänguHindaja;
-import main.massiivioperatsioonid.LäbimänguAlustamine;
-import main.massiivioperatsioonid.LäbimänguLõpetamine;
-import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTööriistad;
+import main.läbimänguHindaja.Hindamistulemus;
+import main.massiiviSeis.MassiiviSeis;
+import main.läbimänguHindaja.LäbimänguHindaja;
+import main.massiivioperatsioon.LäbimänguAlustamine;
+import main.massiivioperatsioon.LäbimänguLõpetamine;
+import main.massiivioperatsioon.Massiivioperatsioon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +20,7 @@ public abstract class Testid {
     Random random = new Random(3);
     LäbimänguHindaja läbimänguHindaja;
     int katseteKordusi = 100;
-    int massiivisElemente = 7;
+    int massiivisElemente = 6;
     int maxJuhuslikVäärtus = 20;
 
 

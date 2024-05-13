@@ -1,9 +1,11 @@
 package main;
 
 
-import main.massiivioperatsioonid.LäbimänguLõpetamine;
-import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.valikuKiirmeetod.ValikuKiirmeetodiTööriistad;
+import main.massiiviSeis.MassiiviSeis;
+import main.massiiviSeis.ValikuKiirmeetodiMassiiviSeis;
+import main.massiivioperatsioon.LäbimänguLõpetamine;
+import main.massiivioperatsioon.Massiivioperatsioon;
+import main.massiivioperatsioon.valikuKiirmeetod.ValikuKiirmeetodiTööriistad;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +27,9 @@ public class MassiiviTööriistad {
         return true;
     }
     public static int tööalaAlgusestVähimaElemendiIndeks(MassiiviSeis massiiviSeis) {
-        int vähimaIndeks = massiiviSeis.tööalaAlgusIndeks;
+        int vähimaIndeks = massiiviSeis.getTööalaAlgusIndeks();
         int vähimaVäärtus = massiiviSeis.getMassiiv()[vähimaIndeks];
-        for (Integer i = massiiviSeis.tööalaAlgusIndeks; i < massiiviSeis.getTööalaleJärgnevIndeks(); i++) {
+        for (Integer i = massiiviSeis.getTööalaAlgusIndeks(); i < massiiviSeis.getTööalaleJärgnevIndeks(); i++) {
             if(massiiviSeis.getMassiiv()[i] < vähimaVäärtus) {
                 vähimaIndeks = i;
                 vähimaVäärtus = massiiviSeis.getMassiiv()[vähimaIndeks];

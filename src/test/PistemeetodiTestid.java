@@ -1,12 +1,12 @@
-import main.MassiiviSeis;
-import main.läbimänguHindajad.PistemeetodiLäbimänguHindaja;
-import main.massiivioperatsioonid.LäbimänguAlustamine;
-import main.massiivioperatsioonid.LäbimänguLõpetamine;
-import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.pistemeetod.PistemeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.pistemeetod.PistemeetodiPiste;
-import main.massiivioperatsioonid.pistemeetod.PistemeetodiTööalaValimine;
-import main.IndeksiteGenereerimine;
+import main.massiiviSeis.MassiiviSeis;
+import main.läbimänguHindaja.PistemeetodiLäbimänguHindaja;
+import main.massiivioperatsioon.LäbimänguAlustamine;
+import main.massiivioperatsioon.LäbimänguLõpetamine;
+import main.massiivioperatsioon.Massiivioperatsioon;
+import main.massiivioperatsioon.pistemeetod.PistemeetodiLäbimänguAlustamine;
+import main.massiivioperatsioon.pistemeetod.PistemeetodiPiste;
+import main.massiivioperatsioon.pistemeetod.PistemeetodiTööalaValimine;
+import tööriistad.IndeksiteGenereerimine;
 
 import java.util.ArrayList;
 import java.util.List;

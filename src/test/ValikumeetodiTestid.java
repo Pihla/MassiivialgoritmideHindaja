@@ -1,12 +1,12 @@
-import main.MassiiviSeis;
-import main.läbimänguHindajad.ValikumeetodiLäbimänguHindaja;
-import main.massiivioperatsioonid.LäbimänguAlustamine;
-import main.massiivioperatsioonid.LäbimänguLõpetamine;
-import main.massiivioperatsioonid.Massiivioperatsioon;
-import main.massiivioperatsioonid.valikumeetod.ValikumeetodiElementideVahetamine;
-import main.massiivioperatsioonid.valikumeetod.ValikumeetodiLäbimänguAlustamine;
-import main.massiivioperatsioonid.valikumeetod.ValikumeetodiTööalaValimine;
-import main.IndeksiteGenereerimine;
+import main.massiiviSeis.MassiiviSeis;
+import main.läbimänguHindaja.ValikumeetodiLäbimänguHindaja;
+import main.massiivioperatsioon.LäbimänguAlustamine;
+import main.massiivioperatsioon.LäbimänguLõpetamine;
+import main.massiivioperatsioon.Massiivioperatsioon;
+import main.massiivioperatsioon.valikumeetod.ValikumeetodiElementideVahetamine;
+import main.massiivioperatsioon.valikumeetod.ValikumeetodiLäbimänguAlustamine;
+import main.massiivioperatsioon.valikumeetod.ValikumeetodiTööalaValimine;
+import tööriistad.IndeksiteGenereerimine;
 
 import java.util.ArrayList;
 import java.util.List;
