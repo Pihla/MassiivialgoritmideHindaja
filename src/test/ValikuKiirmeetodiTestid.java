@@ -1,3 +1,4 @@
+import main.MassiiviTööriistad;
 import main.massiiviSeis.MassiiviSeis;
 import tööriistad.IndeksiteGenereerimine;
 import tööriistad.VõimalikudMassiiviJärjestused;
@@ -46,8 +47,8 @@ public class ValikuKiirmeetodiTestid extends Testid{
         }
 
         //Tööala valimine
-        List<IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
-        for (IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
+        List<MassiiviTööriistad.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
+        for (MassiiviTööriistad.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
             võimalikudKäigud.add(new ValikuKiirmeetodiTööalaValimine(indeksitePaar.algus(), indeksitePaar.lõpustJärgmine(), valikuKiirmeetodiMassiiviSeis));
         }
 

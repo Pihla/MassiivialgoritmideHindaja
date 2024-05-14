@@ -1,3 +1,4 @@
+import main.MassiiviTööriistad;
 import main.massiiviSeis.MassiiviSeis;
 import main.läbimänguHindaja.ValikumeetodiLäbimänguHindaja;
 import main.massiivioperatsioon.LäbimänguAlustamine;
@@ -28,14 +29,14 @@ public class ValikumeetodiTestid extends Testid{
         võimalikudKäigud.add(new LäbimänguLõpetamine(massiiviSeis));
 
         //Elementide vahetamine
-        List<IndeksiteGenereerimine.VahetatavadIndeksid> elementideVahetuseIndeksid = IndeksiteGenereerimine.leiaKõikVõimalikudVahetusteIndeksid(massiiviSeis.getMassiiv().length);
-        for (IndeksiteGenereerimine.VahetatavadIndeksid indeksitePaar : elementideVahetuseIndeksid) {
+        List<MassiiviTööriistad.VahetatavadIndeksid> elementideVahetuseIndeksid = IndeksiteGenereerimine.leiaKõikVõimalikudVahetusteIndeksid(massiiviSeis.getMassiiv().length);
+        for (MassiiviTööriistad.VahetatavadIndeksid indeksitePaar : elementideVahetuseIndeksid) {
             võimalikudKäigud.add(new ValikumeetodiElementideVahetamine(indeksitePaar.vahetatav1(), indeksitePaar.vahetatav2(), massiiviSeis));
         }
 
         //Tööala valimine
-        List<IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
-        for (IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
+        List<MassiiviTööriistad.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
+        for (MassiiviTööriistad.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
             võimalikudKäigud.add(new ValikumeetodiTööalaValimine(indeksitePaar.algus(), indeksitePaar.lõpustJärgmine(), massiiviSeis));
         }
         return võimalikudKäigud;

@@ -96,5 +96,9 @@ public class MassiiviTööriistad {
         }
         return false;
     }
+
+    public record TööalaIndeksid(int algus, int lõpustJärgmine) {}
+    public record PisteIndeksid(int algus, int lõpp) {}
+    public record VahetatavadIndeksid(int vahetatav1, int vahetatav2) {}
 }
 

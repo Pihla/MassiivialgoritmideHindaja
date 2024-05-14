@@ -1,3 +1,4 @@
+import main.MassiiviTööriistad;
 import main.massiiviSeis.MassiiviSeis;
 import main.läbimänguHindaja.PistemeetodiLäbimänguHindaja;
 import main.massiivioperatsioon.LäbimänguAlustamine;
@@ -29,14 +30,14 @@ public class PistemeetodiTestid extends Testid {
         võimalikudKäigud.add(new LäbimänguLõpetamine(massiiviSeis));
 
         //Piste tegemine
-        List<IndeksiteGenereerimine.PisteIndeksid> pisteteIndeksid = IndeksiteGenereerimine.leiaKõikVõimalikudPisteIndeksid(massiiviSeis.getMassiiv().length);
-        for (IndeksiteGenereerimine.PisteIndeksid indeksitePaar : pisteteIndeksid) {
+        List<MassiiviTööriistad.PisteIndeksid> pisteteIndeksid = IndeksiteGenereerimine.leiaKõikVõimalikudPisteIndeksid(massiiviSeis.getMassiiv().length);
+        for (MassiiviTööriistad.PisteIndeksid indeksitePaar : pisteteIndeksid) {
             võimalikudKäigud.add(new PistemeetodiPiste(indeksitePaar.algus(), indeksitePaar.lõpp(), massiiviSeis));
         }
 
         //Tööala valimine
-        List<IndeksiteGenereerimine.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
-        for (IndeksiteGenereerimine.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
+        List<MassiiviTööriistad.TööalaIndeksid> tööalaMuutmiseIndeksid = IndeksiteGenereerimine.leiaKõikvõimalikudTööalaValimiseIndeksid(massiiviSeis.getMassiiv().length);
+        for (MassiiviTööriistad.TööalaIndeksid indeksitePaar : tööalaMuutmiseIndeksid) {
             võimalikudKäigud.add(new PistemeetodiTööalaValimine(indeksitePaar.algus(), indeksitePaar.lõpustJärgmine(), massiiviSeis));
         }
         return võimalikudKäigud;
