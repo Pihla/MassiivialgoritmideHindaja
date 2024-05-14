@@ -19,7 +19,6 @@ public class MullimeetodiKasutajaliides extends Kasutajaliides {
         System.out.println("Võimalikud käigud: ");
         System.out.println("piste algusindeks lõpuindeks - teeb massiivil piste");
         System.out.println("tööala algusindeks lõpuindeks - muudab tööala");
-        System.out.println("lõpetamine - lõpetab läbimängu");
     }
 
     @Override
@@ -38,7 +37,7 @@ public class MullimeetodiKasutajaliides extends Kasutajaliides {
                 int tööalaAlgus = Integer.parseInt(sisend[1]);
                 int tööalaLõpp = Integer.parseInt(sisend[2]);
                 return new MullimeetodiTööalaValimine(tööalaAlgus, tööalaLõpp, massiiviSeis);
-            case "lõpetamine":
+            case "lõpeta":
                 return new LäbimänguLõpetamine(massiiviSeis);
             default:
                 throw new ViganeSisendException("Vigane käsk");

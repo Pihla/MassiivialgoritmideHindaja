@@ -20,7 +20,6 @@ public class ValikuKiirmeetodiKasutajaliides extends Kasutajaliides{
         System.out.println("Võimalikud käigud: ");
         System.out.println("jaotamine x y | z - muudab massiivi seisu, püstkriips märgib lahkmekohta");
         System.out.println("tööala algusindeks lõpuindeks - muudab tööala");
-        System.out.println("lõpetamine - lõpetab läbimängu");
     }
 
     public int vastusePiir = 3;//TODO see tuleks kuidagi mujale tõsta
@@ -62,7 +61,7 @@ public class ValikuKiirmeetodiKasutajaliides extends Kasutajaliides{
                 int tööalaAlgus = Integer.parseInt(sisend[1]);
                 int tööalaLõpp = Integer.parseInt(sisend[2]);
                 return new ValikuKiirmeetodiTööalaValimine(tööalaAlgus, tööalaLõpp, valikuKiirmeetodiMassiiviSeis);
-            case "lõpetamine":
+            case "lõpeta":
                 return new LäbimänguLõpetamine(valikuKiirmeetodiMassiiviSeis);
             default:
                 throw new ViganeSisendException("Vigane käsk");

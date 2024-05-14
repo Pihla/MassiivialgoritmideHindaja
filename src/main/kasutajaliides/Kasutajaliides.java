@@ -24,6 +24,8 @@ public abstract class Kasutajaliides {
         Massiivioperatsioon viimaneKäik = läbimänguAlustamiseOperatsioon(massiiv);
         käigud.add(viimaneKäik);
         kuvaMeetodiInfo(massiiv);
+        System.out.println("lõpeta - lõpetab läbimängu");
+        System.out.println("tagasi - võtab viimase käigu tagasi");
         System.out.println("------");
 
 
@@ -32,6 +34,12 @@ public abstract class Kasutajaliides {
             System.out.println("Sisesta järgmine käik: ");
             String sisend = skänner.nextLine();
 
+            if(sisend.equals("tagasi") && käigud.size() > 1) {
+                käigud.remove(viimaneKäik);
+                viimaneKäik = käigud.get(käigud.size()-1);
+                System.out.println("Käik võeti tagasi, viimane käik oli " + viimaneKäik);
+                continue;
+            }
             String[] sisendiJupid = sisend.split(" ");
             try {
                 viimaneKäik = loeOperatsioon(sisendiJupid, viimaneKäik.getSeis());
