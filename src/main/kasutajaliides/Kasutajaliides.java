@@ -52,8 +52,17 @@ public abstract class Kasutajaliides {
 
         System.out.println("-----------");
         System.out.println("Tehti järgmised käigud: ");
-        for (Massiivioperatsioon käik : käigud) {
-            System.out.println(käik);
+        Massiivioperatsioon eelmineKäik = käigud.get(0);
+        System.out.println(eelmineKäik);
+        for (int i = 1; i < käigud.size(); i++) {
+            Massiivioperatsioon praeguneTegelikKäik = käigud.get(i);
+            Massiivioperatsioon praeguneÕigeKäik = eelmineKäik.järgmineÕigeKäik();
+            System.out.print(praeguneTegelikKäik);
+            if(!praeguneTegelikKäik.equals(praeguneÕigeKäik)) {
+                System.out.print(" Vigane käik. Õige oleks olnud " + praeguneÕigeKäik);
+            }
+            System.out.println();
+            eelmineKäik = praeguneTegelikKäik;
         }
         System.out.println("\nTulemus: "+läbimänguHindaja().hinda(käigud));
 
