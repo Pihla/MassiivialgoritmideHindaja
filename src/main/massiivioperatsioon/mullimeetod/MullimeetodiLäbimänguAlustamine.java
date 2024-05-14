@@ -16,6 +16,6 @@ public class MullimeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
 
     @Override
     public String toString() {
-        return String.format("Mullimeetodi läbimängu alustamine massiivil %s", this.getSeis());
+        return String.format("Mullimeetodi läbimängu alustamine massiivil %s.", this.getSeis());
     }
 }

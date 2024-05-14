@@ -45,8 +45,8 @@ public abstract class Kasutajaliides {
                 viimaneKäik = loeOperatsioon(sisendiJupid, viimaneKäik.getSeis());
                 System.out.println(viimaneKäik);
                 käigud.add(viimaneKäik);
-            }catch (ViganeSisendException e) {
-                System.out.printf("%s, pead sisestama käigu uuesti%n", e.getMessage());
+            }catch (Exception e) {
+                System.out.printf("%s Pead sisestama käigu uuesti.%n", e.getMessage());
             }
         }
 

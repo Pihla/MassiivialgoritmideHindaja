@@ -15,10 +15,10 @@ import java.util.Arrays;
 public class PistemeetodiKasutajaliides extends Kasutajaliides{
     @Override
     public void kuvaMeetodiInfo(int[] massiiv) {
-        System.out.println("Alustame pistemeetodi läbimängu massiivil " + Arrays.toString(massiiv));
+        System.out.printf("Alustame pistemeetodi läbimängu massiivil %s.%n", Arrays.toString(massiiv));
         System.out.println("Võimalikud käigud: ");
         System.out.println("piste algusindeks lõpuindeks - teeb massiivil piste");
-        System.out.println("tööala algusindeks lõpuindeks - muudab tööala");
+        System.out.println("tööala algusindeks lõpuindeks - muudab tööala");//TODO mainida et lõpuindeks jääb välja või siis muuta nii et ei jääks v'kja
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PistemeetodiKasutajaliides extends Kasutajaliides{
             case "lõpeta":
                 return new LäbimänguLõpetamine(massiiviSeis);
             default:
-                throw new ViganeSisendException("Vigane käsk");
+                throw new ViganeSisendException("Vigane käsk.");
         }
     }
 

@@ -13,10 +13,10 @@ public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
             return new ValikumeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
-        if(getSeis().getTööalaleJärgnevIndeks()- getSeis().getTööalaAlgusIndeks() == 1) {
+        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult vea korral
             return new LäbimänguLõpetamine(getSeis());
         }
         return new ValikumeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());

@@ -33,6 +33,6 @@ public class ValikuKiirmeetodiLäbimänguAlustamine extends LäbimänguAlustamin
 
     @Override
     public String toString() {
-        return String.format("Valiku kiirmeetodi läbimängu alustamine massiivil %s", this.getSeis());
+        return String.format("Valiku kiirmeetodi läbimängu alustamine massiivil %s.", this.getSeis());
     }
 }

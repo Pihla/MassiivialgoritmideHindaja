@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class MullimeetodiKasutajaliides extends Kasutajaliides {
     @Override
     public void kuvaMeetodiInfo(int[] massiiv) {
-        System.out.println("Alustame mullimeetodi läbimängu massiivil " + Arrays.toString(massiiv));
+        System.out.printf("Alustame mullimeetodi läbimängu massiivil %s.%n", Arrays.toString(massiiv));
         System.out.println("Võimalikud käigud: ");
         System.out.println("piste algusindeks lõpuindeks - teeb massiivil piste");
         System.out.println("tööala algusindeks lõpuindeks - muudab tööala");
@@ -40,7 +40,7 @@ public class MullimeetodiKasutajaliides extends Kasutajaliides {
             case "lõpeta":
                 return new LäbimänguLõpetamine(massiiviSeis);
             default:
-                throw new ViganeSisendException("Vigane käsk");
+                throw new ViganeSisendException("Vigane käsk.");
         }
     }
 

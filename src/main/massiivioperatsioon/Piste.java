@@ -58,6 +58,6 @@ public abstract class Piste extends Massiivioperatsioon {
 
     @Override
     public String toString() {
-        return String.format("Piste indeksilt %d indeksile %d. Massiivi seis peale pistet: %s", this.pisteAlgusIndeks, this.pisteLõpuIndeks, this.getSeis());
+        return String.format("Piste indeksilt %d indeksile %d. Massiivi seis peale pistet: %s.", this.pisteAlgusIndeks, this.pisteLõpuIndeks, this.getSeis());
     }
 }

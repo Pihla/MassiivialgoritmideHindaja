@@ -1,6 +1,8 @@
 package main.massiivioperatsioon;
 
+import main.kasutajaliides.ViganeSisendException;
 import main.massiiviSeis.MassiiviSeis;
+import main.massiiviSeis.ValikuKiirmeetodiMassiiviSeis;
 
 import java.util.Arrays;
 
@@ -17,7 +19,11 @@ public abstract class LahkmeJärgiJaotamine extends Massiivioperatsioon{
 
     @Override
     public String toString() {
-        return String.format("Lahkme järgi jaotamine. Massiivi seis peale lahkme järgi jaotamist: %s, lahe on indeksil %d, piir lahkmest suuremate ja väiksemate elementide vahel on indeksil %d", this.getSeis(), this.lahkmeJärgiJaotamisePiiristJärgnevIndeks,this.lahkmeJärgiJaotamisePiiristJärgnevIndeks);
+        if(!(this.getSeis() instanceof ValikuKiirmeetodiMassiiviSeis massiiviSeis)) {
+            throw new RuntimeException("Massiivi seis peab olema ValikuKiirmeetodiMassiiviSeis-tüüpi");
+        }
+        int vastusePiir = massiiviSeis.getVastusePiir();
+        return String.format("Lahkme järgi jaotamine. Massiivi seis peale lahkme järgi jaotamist: %s, lahe on indeksil %d, vastuse piir on indeksil %d.", this.getSeis(), this.lahkmeJärgiJaotamisePiiristJärgnevIndeks,vastusePiir);
     }
 
     @Override

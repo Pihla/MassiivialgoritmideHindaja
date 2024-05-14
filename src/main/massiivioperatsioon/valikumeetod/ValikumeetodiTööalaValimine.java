@@ -16,10 +16,11 @@ public class ValikumeetodiTööalaValimine extends TööalaValimine {
         if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {
             return new LäbimänguLõpetamine(getSeis());
         }
-        if(MassiiviTööriistad.tööalaAlgusestVähimaElemendiIndeks(getSeis())==getSeis().getTööalaAlgusIndeks()) {
+        int vähimaElemendiIndeks = MassiiviTööriistad.tööalaAlgusestVähimaElemendiIndeks(getSeis());
+        if(vähimaElemendiIndeks==getSeis().getTööalaAlgusIndeks()) {
             return new ValikumeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
         }
-        return new ValikumeetodiElementideVahetamine(getSeis().getTööalaAlgusIndeks(), MassiiviTööriistad.tööalaAlgusestVähimaElemendiIndeks(getSeis()), getSeis());
+        return new ValikumeetodiElementideVahetamine(getSeis().getTööalaAlgusIndeks(), vähimaElemendiIndeks, getSeis());
     }
 
     @Override

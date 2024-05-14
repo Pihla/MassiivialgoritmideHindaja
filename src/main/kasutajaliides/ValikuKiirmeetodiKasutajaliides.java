@@ -16,9 +16,9 @@ import java.util.Arrays;
 public class ValikuKiirmeetodiKasutajaliides extends Kasutajaliides{
     @Override
     public void kuvaMeetodiInfo(int[] massiiv) {
-        System.out.println("Alustame valiku kiirmeetodi läbimängu massiivil " + Arrays.toString(massiiv) + ", tuua esimesed " + vastusePiir + " elementi massiivi algusesse");
+        System.out.printf("Alustame valiku kiirmeetodi läbimängu massiivil %s, tuua esimesed %d elementi massiivi algusesse.%n", Arrays.toString(massiiv), vastusePiir);
         System.out.println("Võimalikud käigud: ");
-        System.out.println("jaotamine x y | z - muudab massiivi seisu, püstkriips märgib lahkmekohta");
+        System.out.println("jaota x y _ z - muudab massiivi seisu, alakriips märgib lahkmekohta");
         System.out.println("tööala algusindeks lõpuindeks - muudab tööala");
     }
 
@@ -34,24 +34,24 @@ public class ValikuKiirmeetodiKasutajaliides extends Kasutajaliides{
             throw new ViganeSisendException("Valiku kiirmeetodi massiivi seis peab olema ValikuKiirmeetodiMassiiviSeis-tüüpi");
         }
         switch (sisend[0]) {
-            case "jaotamine":
+            case "jaota":
                 if(sisend.length != valikuKiirmeetodiMassiiviSeis.getMassiiv().length + 2) {
-                    throw new ViganeSisendException("uue massiivi pikkus peab olema sama, kui vana massiivi pikkus. lisaks peab olema märgitud lahkmekoht");
+                    throw new ViganeSisendException("Uue massiivi pikkus peab olema sama, kui vana massiivi pikkus. Lisaks peab olema märgitud lahkmekoht.");
                 }
                 int[] uusMassiiv = new int[valikuKiirmeetodiMassiiviSeis.getMassiiv().length];
                 int lahkmeIndeks = -1;
                 int parandus = 0;
                 for (int i = 1; i < sisend.length; i++) {
-                    if(sisend[i].equals("|")) {
+                    if(sisend[i].equals("_")) {
                         parandus = -1;
                         lahkmeIndeks = i-1;
                     }
                     else {
-                        uusMassiiv[i-1+parandus] = Integer.parseInt(sisend[i]);;
+                        uusMassiiv[i-1+parandus] = Integer.parseInt(sisend[i]);
                     }
                 }
                 if(lahkmeIndeks == -1) {
-                    throw new ViganeSisendException("lahe peab olema märgitud");
+                    throw new ViganeSisendException("Lahe peab olema märgitud.");
                 }
                 return new ValikuKiirmeetodiLahkmeJärgiJaotamine(new ValikuKiirmeetodiMassiiviSeis(uusMassiiv,
                         valikuKiirmeetodiMassiiviSeis.getTööalaAlgusIndeks(),
@@ -64,7 +64,7 @@ public class ValikuKiirmeetodiKasutajaliides extends Kasutajaliides{
             case "lõpeta":
                 return new LäbimänguLõpetamine(valikuKiirmeetodiMassiiviSeis);
             default:
-                throw new ViganeSisendException("Vigane käsk");
+                throw new ViganeSisendException("Vigane käsk.");
         }
     }
 

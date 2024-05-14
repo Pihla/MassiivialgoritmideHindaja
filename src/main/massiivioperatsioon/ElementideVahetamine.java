@@ -24,7 +24,7 @@ public abstract class ElementideVahetamine extends Massiivioperatsioon {
 
     @Override
     public String toString() {
-        return String.format("Elementide vahetus indeksitel %d ja %d. Uus massiiv: %s", vasakpoolseElemendiIndeks, parempoolseElemendiIndeks, getSeis());
+        return String.format("Elementide vahetus indeksitel %d ja %d. Uus massiiv: %s.", vasakpoolseElemendiIndeks, parempoolseElemendiIndeks, getSeis());
     }
 
     @Override

@@ -4,7 +4,8 @@ import main.massiiviSeis.MassiiviSeis;
 
 public class MullimeetodiTööristad {
     public static MullimeetodiPiste leiaJärgminePiste(MassiiviSeis massiiviSeis, int vasakpoolneOts, int parempoolneOts) {
-        //indeksid on nii, et suurim piste on see, kui vasakpoolse otsa element liigub parempoolse otsa ette
+        //indeksid on nii, et suurim piste on see, kui parempoolse otsa element liigub vasakpoolse otsa ette
+        //leiab alates paremalt esimese sobiva elemendi ja pistab ta endast vasakule esimesse võimalikku kohta
         for (int pisteAlgus = parempoolneOts; pisteAlgus > vasakpoolneOts; pisteAlgus--) {
             int uuePisteLõpp = pisteAlgus;
             while (uuePisteLõpp > vasakpoolneOts
@@ -15,7 +16,7 @@ public class MullimeetodiTööristad {
                 return new MullimeetodiPiste(pisteAlgus, uuePisteLõpp, massiiviSeis);
             }
         }
-        return null;
+        throw new RuntimeException("Pistet ei ole võimalik teha");
     }
 
 

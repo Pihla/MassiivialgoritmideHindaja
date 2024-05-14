@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args) {
         //kuvaKõigiMeetoditeKorrektsedLäbimängud(); // kuvab järjest kõikide meetodide korrektsed läbimängud
 
-        PistemeetodiKasutajaliides kasutajaliides = new PistemeetodiKasutajaliides();
-        //ValikuKiirmeetodiKasutajaliides kasutajaliides = new ValikuKiirmeetodiKasutajaliides();
+        //PistemeetodiKasutajaliides kasutajaliides = new PistemeetodiKasutajaliides();
+        ValikuKiirmeetodiKasutajaliides kasutajaliides = new ValikuKiirmeetodiKasutajaliides();
         //ValikumeetodiKasutajaliides kasutajaliides = new ValikumeetodiKasutajaliides();
         //MullimeetodiKasutajaliides kasutajaliides = new MullimeetodiKasutajaliides();
         kasutajaliides.meetodiLäbimäng(); //alustab meetodi läbimängu

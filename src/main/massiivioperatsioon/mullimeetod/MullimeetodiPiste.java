@@ -13,13 +13,13 @@ public class MullimeetodiPiste extends Piste {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
             return new MullimeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
         if(!MassiiviTööriistad.kasVahemikOnSorteeritud(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks(), getPisteLõpuIndeks())) {
             return MullimeetodiTööristad.leiaJärgminePiste(getSeis(), getSeis().getTööalaAlgusIndeks(), getPisteLõpuIndeks()-1);
         }
-        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see juhtub ainult siis, kui on viga olnud
+        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult vea korral
             return new LäbimänguLõpetamine(getSeis());
         }
         return new MullimeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());

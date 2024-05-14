@@ -14,7 +14,7 @@ public class PistemeetodiPiste extends Piste {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
             return new PistemeetodiTööalaValimine(0, 1, this.getSeis());
         }
         if(this.getSeis().getMassiiv().length == this.getSeis().getTööalaleJärgnevIndeks()) {

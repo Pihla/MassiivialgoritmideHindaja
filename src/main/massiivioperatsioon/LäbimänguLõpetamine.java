@@ -19,7 +19,7 @@ public class LäbimänguLõpetamine extends Massiivioperatsioon{
 
     @Override
     public String toString() {
-        return "Läbimängu lõpetamine";
+        return "Läbimängu lõpetamine.";
     }
 
     @Override

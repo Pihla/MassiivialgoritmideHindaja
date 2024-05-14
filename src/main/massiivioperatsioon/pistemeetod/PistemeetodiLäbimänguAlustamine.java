@@ -17,7 +17,7 @@ public class PistemeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
 
     @Override
     public String toString() {
-        return String.format("Pistemeetodi läbimängu alustamine massiivil %s", this.getSeis());
+        return String.format("Pistemeetodi läbimängu alustamine massiivil %s.", this.getSeis());
     }
 
 }
