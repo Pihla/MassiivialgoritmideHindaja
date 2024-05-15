@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ValikuKiirmeetodiTestid extends Testid{
 
-    int otsitavateElementideArv = 3;
+    int otsitavateElementideArv = 2;
     ValikuKiirmeetodiTestid() {
         this.läbimänguHindaja = new ValikuKiirmeetodiLäbimänguHindaja();
     }

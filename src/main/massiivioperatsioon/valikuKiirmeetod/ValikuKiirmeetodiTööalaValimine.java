@@ -30,18 +30,24 @@ public class ValikuKiirmeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        int oodatavPikkus = getSeis().getVastusePiir();
-        if(getSeis().getTööalaAlgusIndeks() == oodatavPikkus) {//see on võimalik ainult siis, kui praegune samm oli vale
+        if(getSeis().getVastusePiir() < getSeis().getTööalaAlgusIndeks()
+                || getSeis().getVastusePiir() >= getSeis().getTööalaleJärgnevIndeks()) {//see on võimalik ainult vea korral
             return new LäbimänguLõpetamine(getSeis());
         }
+        int oodatavPikkus = getSeis().getVastusePiir();
+        if(getSeis().getTööalaAlgusIndeks() == oodatavPikkus) {//see on võimalik ainult siis, kui praegune samm oli vale
+            return ValikuKiirmeetodiTööriistad.leiaLahkmeJärgiJaotamine(getSeis());
+            //throw  new RuntimeException("koht");
+            //return new LäbimänguLõpetamine(getSeis());
+        }//TODO kontrollida kas ikka pole vaja
 
         return ValikuKiirmeetodiTööriistad.leiaLahkmeJärgiJaotamine(getSeis());
     }
 
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(getSeis().getVastusePiir() <= getSeis().getTööalaAlgusIndeks()
-                || getSeis().getVastusePiir() >= getSeis().getTööalaleJärgnevIndeks()) {//TODO kontrollida if
+        if(getSeis().getVastusePiir() < getSeis().getTööalaAlgusIndeks()
+                || getSeis().getVastusePiir() >= getSeis().getTööalaleJärgnevIndeks()) {
             return MassiiviTööriistad.kasÕigeTulemus(getSeis());
         }
         return ValikuKiirmeetodiTööriistad.kasEnneTööalaOnAinultVähimadElemendid(getSeis())

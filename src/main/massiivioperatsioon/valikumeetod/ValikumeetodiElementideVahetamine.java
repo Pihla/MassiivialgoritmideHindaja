@@ -22,6 +22,7 @@ public class ValikumeetodiElementideVahetamine extends ElementideVahetamine {
         return new ValikumeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks()+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
     }
 
+    //TODO terve valiku kiirmeetod üle kontrolldia
     @Override
     public boolean kasOnVõimalikLäbimänguJätkata() {
         if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {

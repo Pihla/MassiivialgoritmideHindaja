@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class Testid {
     //kommentaar
-    Random random = new Random(3);
+    Random random = new Random(4);
     LäbimänguHindaja läbimänguHindaja;
-    int katseteKordusi = 100;
+    int katseteKordusi = 200;
     int massiivisElemente = 6;
     int maxJuhuslikVäärtus = 20;
 

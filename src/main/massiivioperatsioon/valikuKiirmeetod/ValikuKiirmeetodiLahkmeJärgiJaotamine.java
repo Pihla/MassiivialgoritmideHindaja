@@ -33,21 +33,26 @@ public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamin
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
             return new ValikuKiirmeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
 
-        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult siis, kui varem tehti viga
+        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult vea korral
             return new LäbimänguLõpetamine(getSeis());
         }
-
         int praegunePikkus = this.getLahkmeJärgiJaotamisePiiristJärgnevIndeks();
         int oodatavPikkus = getSeis().getVastusePiir();
-        if(praegunePikkus == oodatavPikkus) {
+
+        if(praegunePikkus == oodatavPikkus
+        || (praegunePikkus == getSeis().getTööalaAlgusIndeks() && praegunePikkus+1 == oodatavPikkus)) {
+            //kui lahkme järgi jagamine ei muutnud seisu ja läbimäng tuleks peale piiri nihutamist lõpetada
             return new LäbimänguLõpetamine(getSeis());
         }
         if(praegunePikkus > oodatavPikkus) {
             return new ValikuKiirmeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks(), praegunePikkus, getSeis());
+        }
+        if(praegunePikkus == getSeis().getTööalaAlgusIndeks()) {//kui lahkme järgi jagamine ei muutnud seisu
+        return new ValikuKiirmeetodiTööalaValimine(praegunePikkus+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
         }
         return new ValikuKiirmeetodiTööalaValimine(praegunePikkus, getSeis().getTööalaleJärgnevIndeks(), getSeis());
     }

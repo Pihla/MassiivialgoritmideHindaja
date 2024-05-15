@@ -65,6 +65,7 @@ public class MassiiviTööriistad {
             return tehtudKäigud;
         }
         while (!(viimaneKäik instanceof LäbimänguLõpetamine)) {
+            //System.out.println(viimaneKäik);
             viimaneKäik = viimaneKäik.järgmineÕigeKäik();
             if (!(viimaneKäik instanceof LäbimänguLõpetamine)
                     && !viimaneKäik.kasOnVõimalikLäbimänguJätkata()) {

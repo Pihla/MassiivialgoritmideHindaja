@@ -1,5 +1,6 @@
 package main.massiivioperatsioon.valikuKiirmeetod;
 
+import main.massiiviSeis.MassiiviSeis;
 import main.massiiviSeis.ValikuKiirmeetodiMassiiviSeis;
 import main.massiivioperatsioon.LahkmeJärgiJaotamine;
 
@@ -20,19 +21,16 @@ public class ValikuKiirmeetodiTööriistad {
             while(uusMassiiv[j] >= lahe) {
                 j--;
                 if(j < massiiviSeis.getTööalaAlgusIndeks()) {//lahkme järgi jaotamine ei muuda massiivi seisu
-                    esimeneLahkmestSuurem = massiiviSeis.getTööalaAlgusIndeks() + 1;
-                    massiiviSeis = new ValikuKiirmeetodiMassiiviSeis(uusMassiiv, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis.getVastusePiir());
-                    return new ValikuKiirmeetodiLahkmeJärgiJaotamine(massiiviSeis, esimeneLahkmestSuurem);
-                }
+                    return new ValikuKiirmeetodiLahkmeJärgiJaotamine(massiiviSeis, massiiviSeis.getTööalaAlgusIndeks());
+                  }
             }
             while(uusMassiiv[i] < lahe) {
                 i++;
             }
-            if(i>j) {
-                //esimene lahkmsest suurem on i
+            if(i>j) {//kui positsioonid läksid üksteisest mööda
                 esimeneLahkmestSuurem = i;
-                massiiviSeis = new ValikuKiirmeetodiMassiiviSeis(uusMassiiv, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis.getVastusePiir());
-                return new ValikuKiirmeetodiLahkmeJärgiJaotamine(massiiviSeis, esimeneLahkmestSuurem);
+                MassiiviSeis uusMassiiviSeis = new ValikuKiirmeetodiMassiiviSeis(uusMassiiv, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis.getVastusePiir());
+                return new ValikuKiirmeetodiLahkmeJärgiJaotamine(uusMassiiviSeis, esimeneLahkmestSuurem);
             }
             int abi = uusMassiiv[i];
             uusMassiiv[i] = uusMassiiv[j];
