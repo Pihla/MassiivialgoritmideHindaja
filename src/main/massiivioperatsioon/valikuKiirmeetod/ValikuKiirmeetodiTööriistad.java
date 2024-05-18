@@ -8,28 +8,29 @@ import java.util.Arrays;
 
 public class ValikuKiirmeetodiTööriistad {
 
-    public static LahkmeJärgiJaotamine leiaLahkmeJärgiJaotamine(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
+    protected static LahkmeJärgiJaotamine leiaLahkmeJärgiJaotamine(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
         int lahe = massiiviSeis.getMassiiv()[massiiviSeis.getTööalaAlgusIndeks()];
 
         int[] uusMassiiv = Arrays.copyOf(massiiviSeis.getMassiiv(), massiiviSeis.getMassiiv().length);
 
         int i = massiiviSeis.getTööalaAlgusIndeks();
-        int j = massiiviSeis.getTööalaleJärgnevIndeks()-1;
+        int j = massiiviSeis.getTööalaleJärgnevIndeks() - 1;
         int esimeneLahkmestSuurem;
 
-        while(true) {
-            while(uusMassiiv[j] >= lahe) {
+        while (true) {
+            while (uusMassiiv[j] >= lahe) {
                 j--;
-                if(j < massiiviSeis.getTööalaAlgusIndeks()) {//lahkme järgi jaotamine ei muuda massiivi seisu
+                if (j < massiiviSeis.getTööalaAlgusIndeks()) { // kõik tööala elemendid on lahkmest suuremad või võrdsed
                     return new ValikuKiirmeetodiLahkmeJärgiJaotamine(massiiviSeis, massiiviSeis.getTööalaAlgusIndeks());
-                  }
+                }
             }
-            while(uusMassiiv[i] < lahe) {
+            while (uusMassiiv[i] < lahe) {
                 i++;
             }
-            if(i>j) {//kui positsioonid läksid üksteisest mööda
+            if (i > j) { // kui positsioonid läksid üksteisest mööda
                 esimeneLahkmestSuurem = i;
-                MassiiviSeis uusMassiiviSeis = new ValikuKiirmeetodiMassiiviSeis(uusMassiiv, massiiviSeis.getTööalaAlgusIndeks(), massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis.getVastusePiir());
+                MassiiviSeis uusMassiiviSeis = new ValikuKiirmeetodiMassiiviSeis(uusMassiiv, massiiviSeis.getTööalaAlgusIndeks(),
+                        massiiviSeis.getTööalaleJärgnevIndeks(), massiiviSeis.getVastusePiir());
                 return new ValikuKiirmeetodiLahkmeJärgiJaotamine(uusMassiiviSeis, esimeneLahkmestSuurem);
             }
             int abi = uusMassiiv[i];
@@ -39,30 +40,31 @@ public class ValikuKiirmeetodiTööriistad {
     }
 
     public static boolean kasVähimadElemendidOnEes(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
-        //kontroll kas valiku kiirmeetodi lõpptulemus pole õige
+        // kontroll kas valiku kiirmeetodi lõpptulemus on õige
 
-        //panen läbimängu tulemusel saadud vähimad n elementi massiivi ja sorteerin ära
+        // panen läbimängu tulemusel saadud vähimad n elementi massiivi ja sorteerin ära
         int[] leitudVähimadElemendid = new int[massiiviSeis.getVastusePiir()];
         for (int i = 0; i < leitudVähimadElemendid.length; i++) {
             leitudVähimadElemendid[i] = massiiviSeis.getMassiiv()[i];
         }
         Arrays.sort(leitudVähimadElemendid);
 
-        //sorteerin algse massiivi ära
+        // sorteerin algse massiivi ära
         int[] sorteeritudMassiiv = Arrays.copyOf(massiiviSeis.getMassiiv(), massiiviSeis.getMassiiv().length);
         Arrays.sort(sorteeritudMassiiv);
 
-        //kui esimesed n elementi ei ole mõlemas massiivis samad, ei ole vähimad elemendid ees
+        // kui esimesed n elementi ei ole mõlemas massiivis samad, ei ole vähimad elemendid ees
         for (int i = 0; i < leitudVähimadElemendid.length; i++) {
-            if(leitudVähimadElemendid[i] != sorteeritudMassiiv[i]) {
+            if (leitudVähimadElemendid[i] != sorteeritudMassiiv[i]) {
                 return false;
             }
         }
 
         return true;
     }
-    public static boolean kasEnneTööalaOnAinultVähimadElemendid(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
-        //kontrollib, kas enne tööala asuvad ainult need elemendid, mis jäävad vastusesse peale korrektset valiku kiirmeetodi läbimängu
+
+    protected static boolean kasEnneTööalaOnAinultVähimadElemendid(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
+        // kontrollib, kas enne tööala asuvad ainult need elemendid, mis jäävad vastusesse peale korrektset valiku kiirmeetodi läbimängu
         int[] elemendidEnneTööala = leiaEsimesedElemendidSorteeritult(massiiviSeis, massiiviSeis.getTööalaAlgusIndeks());
 
         int[] algneMassiiv = Arrays.copyOf(massiiviSeis.getMassiiv(), massiiviSeis.getMassiiv().length);
@@ -70,10 +72,10 @@ public class ValikuKiirmeetodiTööriistad {
 
         int j = 0;
         for (int element : elemendidEnneTööala) {
-            while(algneMassiiv[j] != element && j < massiiviSeis.getVastusePiir()) {
+            while (algneMassiiv[j] != element && j < massiiviSeis.getVastusePiir()) {
                 j++;
             }
-            if(j >= massiiviSeis.getVastusePiir()) {
+            if (j >= massiiviSeis.getVastusePiir()) {
                 return false;
             }
             j++;
@@ -81,8 +83,8 @@ public class ValikuKiirmeetodiTööriistad {
         return true;
     }
 
-    private static int[] leiaEsimesedElemendidSorteeritult(ValikuKiirmeetodiMassiiviSeis massiiviSeis, int mitmendaElemendini) {
-        //leiab elemendid, mis oleksid valiku kiirmeetodi järel esimeses osas ja sorteerib need
+    protected static int[] leiaEsimesedElemendidSorteeritult(ValikuKiirmeetodiMassiiviSeis massiiviSeis, int mitmendaElemendini) {
+        // leiab elemendid, mis oleksid valiku kiirmeetodi järel esimeses osas ja sorteerib need
         int[] esimesed = new int[mitmendaElemendini];
         for (int i = 0; i < esimesed.length; i++) {
             esimesed[i] = massiiviSeis.getMassiiv()[i];
@@ -91,9 +93,9 @@ public class ValikuKiirmeetodiTööriistad {
         return esimesed;
     }
 
-    public static boolean kasKõikPiiristVäiksemadOnTööalasVõiEnneSeda(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
-        //kontrollib, ega mõni n vähima elemendi hulgast pole peale tööala
-        if(massiiviSeis.getTööalaleJärgnevIndeks() < massiiviSeis.getVastusePiir()) {
+    protected static boolean kasKõikPiiristVäiksemadOnTööalasVõiEnneSeda(ValikuKiirmeetodiMassiiviSeis massiiviSeis) {
+        // kontrollib, ega mõni n vähima elemendi hulgast pole peale tööala
+        if (massiiviSeis.getTööalaleJärgnevIndeks() < massiiviSeis.getVastusePiir()) {
             return false;
         }
         int[] tööalaJaEelnevad = leiaEsimesedElemendidSorteeritult(massiiviSeis, massiiviSeis.getTööalaleJärgnevIndeks());
@@ -102,7 +104,7 @@ public class ValikuKiirmeetodiTööriistad {
         Arrays.sort(algneMassiiv);
 
         for (int i = 0; i < massiiviSeis.getVastusePiir(); i++) {
-            if(tööalaJaEelnevad[i] != algneMassiiv[i]) {
+            if (tööalaJaEelnevad[i] != algneMassiiv[i]) {
                 return false;
             }
         }

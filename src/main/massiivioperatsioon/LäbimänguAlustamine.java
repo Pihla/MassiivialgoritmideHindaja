@@ -10,10 +10,9 @@ public abstract class LäbimänguAlustamine extends Massiivioperatsioon {
     }
 
     @Override
-    public boolean kasOnVõimalikLäbimänguJätkata() {
+    public boolean läbimänguOnVõimalikJätkata() {
         return true;
     }
-
 
     @Override
     public boolean equals(Object o) {

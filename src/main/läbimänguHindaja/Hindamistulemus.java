@@ -1,18 +1,20 @@
 package main.läbimänguHindaja;
 
 public class Hindamistulemus {
-    private int käikudeArv;
+
     private int valedeKäikudeArv = 0;
+    private int õigeteKäikudeArv = 0;
     private Integer oluliseVeaIndeks;
     private int raskusparameeter;
     private int oodatudRaskusparameeter;
 
-    public Hindamistulemus(int käikudeArv) {
-        this.käikudeArv = käikudeArv;
+
+    protected void suurendaValedeKäikudeArvu() {
+        this.valedeKäikudeArv += 1;
     }
 
-    public void suurendaValedeKäikudeArvu() {
-        this.valedeKäikudeArv += 1;
+    protected void suurendaÕigeteKäikudeArvu() {
+        this.õigeteKäikudeArv += 1;
     }
 
     public int getValedeKäikudeArv() {
@@ -23,11 +25,8 @@ public class Hindamistulemus {
         return oluliseVeaIndeks;
     }
 
-    public void setKäikudeArv(int käikudeArv) {
-        this.käikudeArv = käikudeArv;
-    }
 
-    public void setOlulineViga(Integer oluliseVeaIndeks) {
+    protected void setOlulineViga(Integer oluliseVeaIndeks) {
         this.oluliseVeaIndeks = oluliseVeaIndeks;
     }
 
@@ -35,7 +34,7 @@ public class Hindamistulemus {
         return raskusparameeter;
     }
 
-    public void setRaskusparameeter(int raskusparameeter) {
+    protected void setRaskusparameeter(int raskusparameeter) {
         this.raskusparameeter = raskusparameeter;
     }
 
@@ -43,30 +42,37 @@ public class Hindamistulemus {
         return oodatudRaskusparameeter;
     }
 
-    public void setOodatudRaskusparameeter(int oodatudRaskusparameeter) {
+    protected void setOodatudRaskusparameeter(int oodatudRaskusparameeter) {
         this.oodatudRaskusparameeter = oodatudRaskusparameeter;
     }
 
+    private double arvutaSuhtelineRaskus() {
+        double raskuseSuhtelineHinnang = 1.0 * raskusparameeter / oodatudRaskusparameeter;
+        return Math.min(raskuseSuhtelineHinnang, 1);
+    }
+
+    private double arvutaÕigeteKäikudeOsakaal() {
+        return 1.0 * õigeteKäikudeArv / (õigeteKäikudeArv + valedeKäikudeArv);
+    }
+
     public double arvutaPunktid() {
-        int õigeidKäike = käikudeArv-valedeKäikudeArv;
-        double õigeteKäikudeOsakaal = 1.0*õigeidKäike/käikudeArv;
-        double raskuseSuhtelineHinnang = 1.0*raskusparameeter/oodatudRaskusparameeter;
-        if(oodatudRaskusparameeter == 0) {
+        double õigeteKäikudeOsakaal = arvutaÕigeteKäikudeOsakaal();
+        double raskuseSuhtelineHinnang = arvutaSuhtelineRaskus();
+        if (oodatudRaskusparameeter == 0) {
             raskuseSuhtelineHinnang = 1;
-            System.out.println("oodatud raskusparameeter oli 0");
+            System.out.println("Oodatud raskusparameeter oli 0."); // see on kahtlane olukord ja vajab tähelepanu.
         }
-        raskuseSuhtelineHinnang = Math.min(raskuseSuhtelineHinnang, 1);
 
         return õigeteKäikudeOsakaal * raskuseSuhtelineHinnang;
     }
 
     public String toString() {
-        int õigeidKäike = käikudeArv-valedeKäikudeArv;
-        double õigeteKäikudeOsakaal = 1.0*õigeidKäike/käikudeArv;
-        double raskuseSuhtelineHinnang = 1.0*raskusparameeter/oodatudRaskusparameeter;
-        String oluliseVeaInfo = oluliseVeaIndeks == null ? "puudub" : "indeksil "+oluliseVeaIndeks;
+        double õigeteKäikudeOsakaal = arvutaÕigeteKäikudeOsakaal();
+        double raskuseSuhtelineHinnang = arvutaSuhtelineRaskus();
+        String oluliseVeaInfo = oluliseVeaIndeks == null ? "puudub" : oluliseVeaIndeks + ". käigul";
 
-        return String.format("Raskusparameeter %d/%d ehk %.2f, õigeid käike %d/%d ehk %.2f, oluline viga %s, kokku punkte %.2f", raskusparameeter, oodatudRaskusparameeter, raskuseSuhtelineHinnang, õigeidKäike, käikudeArv, õigeteKäikudeOsakaal, oluliseVeaInfo, arvutaPunktid());
+        return String.format("Raskusparameeter %d/%d ehk %.2f, õigeid käike %d/%d ehk %.2f, oluline viga %s, kokku punkte %.2f.",
+                raskusparameeter, oodatudRaskusparameeter, raskuseSuhtelineHinnang, õigeteKäikudeArv, õigeteKäikudeArv + valedeKäikudeArv, õigeteKäikudeOsakaal, oluliseVeaInfo, arvutaPunktid());
 
     }
 }

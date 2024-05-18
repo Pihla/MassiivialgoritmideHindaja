@@ -1,14 +1,18 @@
 package main.massiiviSeis;
 
 
-import main.MassiiviTööriistad;
-
 import java.util.Arrays;
 
 public class MassiiviSeis {
-    int[] massiiv;
-    Integer tööalaAlgusIndeks;
-    Integer tööalaleJärgnevIndeks;
+    private final int[] massiiv;
+    private Integer tööalaAlgusIndeks;
+    private Integer tööalaleJärgnevIndeks;
+
+    public MassiiviSeis(int[] massiiv, Integer tööalaAlgusIndeks, Integer tööalaleJärgnevIndeks) {
+        this.massiiv = Arrays.copyOf(massiiv, massiiv.length);
+        this.tööalaAlgusIndeks = tööalaAlgusIndeks;
+        this.tööalaleJärgnevIndeks = tööalaleJärgnevIndeks;
+    }
 
     public int[] getMassiiv() {
         return massiiv;
@@ -18,49 +22,39 @@ public class MassiiviSeis {
         return tööalaAlgusIndeks;
     }
 
-    public Integer getTööalaleJärgnevIndeks() {
-        return tööalaleJärgnevIndeks;
-    }
-
     public void setTööalaAlgusIndeks(int tööalaAlgusIndeks) {
         this.tööalaAlgusIndeks = tööalaAlgusIndeks;
+    }
+
+    public Integer getTööalaleJärgnevIndeks() {
+        return tööalaleJärgnevIndeks;
     }
 
     public void setTööalaleJärgnevIndeks(int tööalaleJärgnevIndeks) {
         this.tööalaleJärgnevIndeks = tööalaleJärgnevIndeks;
     }
 
-    public MassiiviSeis(int[] massiiv, Integer tööalaAlgusIndeks, Integer tööalaleJärgnevIndeks) {
-        this.massiiv = Arrays.copyOf(massiiv, massiiv.length);
-        this.tööalaAlgusIndeks = tööalaAlgusIndeks;
-        this.tööalaleJärgnevIndeks = tööalaleJärgnevIndeks;
-    }
-
     public MassiiviSeis teeKoopia() {
         return new MassiiviSeis(this.massiiv, this.tööalaAlgusIndeks, this.tööalaleJärgnevIndeks);
     }
+
+    public boolean kasTööalaValimata() {
+        return tööalaAlgusIndeks == null || tööalaleJärgnevIndeks == null;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < this.massiiv.length; i++) {
-            //TODO kas seda ifi peaks siit ära võtma
-            /*if(this instanceof ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis) {
-                if(valikuKiirmeetodiMassiiviSeis.getVastusePiir() == i) {
-                    sb.append("_ ");
-                }
-            }*/
-            if(!MassiiviTööriistad.kasTööalaValimata(this) && (i == this.tööalaAlgusIndeks || i == this.tööalaleJärgnevIndeks)) {
-                sb.append("|");
-                if(i != this.massiiv.length) {
-                    sb.append(" ");
-                }
+        for (int i = 0; i < massiiv.length; i++) {
+            if (!kasTööalaValimata() && (i == tööalaAlgusIndeks || i == tööalaleJärgnevIndeks)) {
+                sb.append("| ");
             }
             sb.append(massiiv[i]);
-            if(i != this.massiiv.length - 1) {
+            if (i != massiiv.length - 1) {
                 sb.append(" ");
             }
         }
-        if(this.getTööalaleJärgnevIndeks() != null && this.tööalaleJärgnevIndeks == this.massiiv.length) {
+        if (getTööalaleJärgnevIndeks() != null && tööalaleJärgnevIndeks == massiiv.length) {
             sb.append("|");
         }
         sb.append("]");

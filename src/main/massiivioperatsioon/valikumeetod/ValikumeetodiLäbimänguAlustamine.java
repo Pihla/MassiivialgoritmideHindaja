@@ -16,6 +16,6 @@ public class ValikumeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
 
     @Override
     public String toString() {
-        return String.format("Valikumeetodi läbimängu alustamine massiivil %s.", this.getSeis());
+        return "Valikumeetodi läbimängu alustamine massiivil " + getSeis() + ".";
     }
 }

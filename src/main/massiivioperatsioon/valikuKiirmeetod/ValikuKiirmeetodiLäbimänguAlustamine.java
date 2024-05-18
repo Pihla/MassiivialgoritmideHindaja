@@ -6,11 +6,12 @@ import main.massiivioperatsioon.LäbimänguAlustamine;
 import main.massiivioperatsioon.Massiivioperatsioon;
 
 public class ValikuKiirmeetodiLäbimänguAlustamine extends LäbimänguAlustamine {
+    ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis;
+
     public ValikuKiirmeetodiLäbimänguAlustamine(ValikuKiirmeetodiMassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
     }
 
-    ValikuKiirmeetodiMassiiviSeis valikuKiirmeetodiMassiiviSeis;
     @Override
     public ValikuKiirmeetodiMassiiviSeis getSeis() {
         return valikuKiirmeetodiMassiiviSeis;
@@ -18,11 +19,10 @@ public class ValikuKiirmeetodiLäbimänguAlustamine extends LäbimänguAlustamin
 
     @Override
     public void setSeis(MassiiviSeis seis) {
-        if(seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
+        if (seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
             this.valikuKiirmeetodiMassiiviSeis = uusSeis;
-        }
-        else {
-            throw new RuntimeException("valikukiirmeetodi seis peab olema valikukiirmeetodiseisu isend");
+        } else {
+            throw new RuntimeException("Valiku kiirmeetodi seis peab olema ValikuKiirmeetodiMassiiviSeis isend.");
         }
     }
 
@@ -33,6 +33,6 @@ public class ValikuKiirmeetodiLäbimänguAlustamine extends LäbimänguAlustamin
 
     @Override
     public String toString() {
-        return String.format("Valiku kiirmeetodi läbimängu alustamine massiivil %s.", this.getSeis());
+        return "Valiku kiirmeetodi läbimängu alustamine massiivil " + getSeis() + ".";
     }
 }

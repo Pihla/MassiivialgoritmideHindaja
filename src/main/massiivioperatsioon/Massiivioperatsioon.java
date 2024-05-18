@@ -5,6 +5,10 @@ import main.massiiviSeis.MassiiviSeis;
 public abstract class Massiivioperatsioon {
     MassiiviSeis seis; // massiivi seis peale operatsiooni
 
+    public Massiivioperatsioon(MassiiviSeis massiivEnneOperatsiooni) {
+        this.setSeis(massiivEnneOperatsiooni.teeKoopia());
+    }
+
     public MassiiviSeis getSeis() {
         return seis;
     }
@@ -13,12 +17,9 @@ public abstract class Massiivioperatsioon {
         this.seis = seis;
     }
 
-    public abstract Massiivioperatsioon järgmineÕigeKäik();
-    public abstract boolean kasOnVõimalikLäbimänguJätkata();
+    public abstract boolean läbimänguOnVõimalikJätkata(); // kas läbimängu on võimalik peale praegust operatsiooni jätkata
+    public abstract Massiivioperatsioon järgmineÕigeKäik(); // kehtib ainult juhul, kui läbimängu on võimalik jätkata
 
-    public Massiivioperatsioon(MassiiviSeis massiivEnneOperatsiooni) {
-        this.setSeis(massiivEnneOperatsiooni.teeKoopia());
-    }
     @Override
     public abstract String toString();
 

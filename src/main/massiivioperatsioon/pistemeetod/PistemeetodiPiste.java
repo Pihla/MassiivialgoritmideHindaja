@@ -1,37 +1,37 @@
 package main.massiivioperatsioon.pistemeetod;
 
 
-import main.massiiviSeis.MassiiviSeis;
 import main.MassiiviTööriistad;
+import main.massiiviSeis.MassiiviSeis;
 import main.massiivioperatsioon.LäbimänguLõpetamine;
 import main.massiivioperatsioon.Massiivioperatsioon;
 import main.massiivioperatsioon.Piste;
 
 public class PistemeetodiPiste extends Piste {
-    public PistemeetodiPiste(int algusIndeks, int lõpuIndeks, MassiiviSeis massiivEnnePistet) {
-        super(algusIndeks, lõpuIndeks, massiivEnnePistet);
+    public PistemeetodiPiste(int pisteAlgusIndeks, int pisteLõpuIndeks, MassiiviSeis massiivEnnePistet) {
+        super(pisteAlgusIndeks, pisteLõpuIndeks, massiivEnnePistet);
     }
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
-            return new PistemeetodiTööalaValimine(0, 1, this.getSeis());
+        if (getSeis().kasTööalaValimata()) { // see on võimalik ainult vea korral
+            return new PistemeetodiTööalaValimine(0, 1, getSeis());
         }
-        if(this.getSeis().getMassiiv().length == this.getSeis().getTööalaleJärgnevIndeks()) {
-            return new LäbimänguLõpetamine(this.getSeis());
+        if (getSeis().getMassiiv().length == getSeis().getTööalaleJärgnevIndeks()) {
+            return new LäbimänguLõpetamine(getSeis());
         }
-        return new PistemeetodiTööalaValimine(this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks()+1, this.getSeis());
+        return new PistemeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks(), getSeis().getTööalaleJärgnevIndeks() + 1, getSeis());
     }
 
     @Override
-    public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+    public boolean läbimänguOnVõimalikJätkata() {
+        if (getSeis().kasTööalaValimata()) {
             return true;
         }
-        if(MassiiviTööriistad.esinevadValedElemendidEnneIndeksit(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
+        if (PistemeetodiTööriistad.valedElemendidEnneIndeksit(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks())) {
             return false;
         }
-        return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks());
+        return MassiiviTööriistad.kasVahemikOnSorteeritud(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks(), getSeis().getTööalaleJärgnevIndeks());
     }
 }
 

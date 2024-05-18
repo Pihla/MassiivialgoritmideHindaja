@@ -2,18 +2,18 @@ package main.massiivioperatsioon;
 
 import main.massiiviSeis.MassiiviSeis;
 
-public class LäbimänguLõpetamine extends Massiivioperatsioon{
+public class LäbimänguLõpetamine extends Massiivioperatsioon {
     public LäbimänguLõpetamine(MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
     }
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        throw new RuntimeException("Peale läbimängu lõpetamist ei saa rohkem operatsioone teha");
+        return null; // peale läbimängu lõpetamist ei ole kunagi järgmist õiget käiku
     }
 
     @Override
-    public boolean kasOnVõimalikLäbimänguJätkata() {
+    public boolean läbimänguOnVõimalikJätkata() {
         return false;
     }
 

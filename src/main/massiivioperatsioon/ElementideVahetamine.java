@@ -9,7 +9,11 @@ public abstract class ElementideVahetamine extends Massiivioperatsioon {
     public ElementideVahetamine(int üheVahetatavaIndeks, int teiseVahetatavaIndeks, MassiiviSeis massiivEnneOperatsiooni) {
         super(massiivEnneOperatsiooni);
         if (üheVahetatavaIndeks == teiseVahetatavaIndeks) {
-            throw new RuntimeException("Vahetatavad elemendid peavad olema erinevad");
+            throw new IllegalArgumentException("Vahetatavad elemendid peavad olema erinevad.");
+        }
+        if (üheVahetatavaIndeks < 0 || üheVahetatavaIndeks >=massiivEnneOperatsiooni.getMassiiv().length
+                || teiseVahetatavaIndeks < 0 || teiseVahetatavaIndeks >= massiivEnneOperatsiooni.getMassiiv().length) {
+            throw new IllegalArgumentException("Mõlema vahetatava indeksid peavad olema massiivi sees.");
         }
         this.vasakpoolseElemendiIndeks = Math.min(üheVahetatavaIndeks, teiseVahetatavaIndeks);
         this.parempoolseElemendiIndeks = Math.max(üheVahetatavaIndeks, teiseVahetatavaIndeks);
@@ -24,7 +28,7 @@ public abstract class ElementideVahetamine extends Massiivioperatsioon {
 
     @Override
     public String toString() {
-        return String.format("Elementide vahetus indeksitel %d ja %d. Uus massiiv: %s.", vasakpoolseElemendiIndeks, parempoolseElemendiIndeks, getSeis());
+        return "Elementide vahetus indeksitel " + vasakpoolseElemendiIndeks + " ja " + parempoolseElemendiIndeks + ". Uus massiiv: " + getSeis() + ".";
     }
 
     @Override

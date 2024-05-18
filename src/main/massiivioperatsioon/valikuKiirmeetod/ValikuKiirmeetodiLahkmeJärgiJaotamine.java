@@ -1,7 +1,6 @@
 package main.massiivioperatsioon.valikuKiirmeetod;
 
 import main.massiiviSeis.MassiiviSeis;
-import main.MassiiviTööriistad;
 import main.massiiviSeis.ValikuKiirmeetodiMassiiviSeis;
 import main.massiivioperatsioon.LahkmeJärgiJaotamine;
 import main.massiivioperatsioon.LäbimänguLõpetamine;
@@ -15,7 +14,6 @@ public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamin
         super(massiivPealeOperatsiooni, lahkmeJärgiJaotamisePiiristJärgnevIndeks);
     }
 
-    //TODO mõelda kas on parem lahendus kui seda välja ja geti ja seti 3 eri kohas kopeerida
     @Override
     public ValikuKiirmeetodiMassiiviSeis getSeis() {
         return valikuKiirmeetodiMassiiviSeis;
@@ -23,49 +21,49 @@ public class ValikuKiirmeetodiLahkmeJärgiJaotamine extends LahkmeJärgiJaotamin
 
     @Override
     public void setSeis(MassiiviSeis seis) {
-        if(seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
+        if (seis instanceof ValikuKiirmeetodiMassiiviSeis uusSeis) {
             this.valikuKiirmeetodiMassiiviSeis = uusSeis;
-        }
-        else {
-            throw new RuntimeException("valikukiirmeetodi seis peab olema valikukiirmeetodiseisu isend");
+        } else {
+            throw new IllegalArgumentException("Valiku kiirmeetodi seis peab olema ValikuKiirmeetodiMassiiviSeis isend.");
         }
     }
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {//see on võimalik ainult vea korral
+        //kui tööala on valimata, tuleks see valida
+        if (getSeis().kasTööalaValimata()) { // see on võimalik ainult vea korral
             return new ValikuKiirmeetodiTööalaValimine(0, getSeis().getMassiiv().length, getSeis());
         }
 
-        if(getSeis().getTööalaleJärgnevIndeks() - getSeis().getTööalaAlgusIndeks() == 1) {//see on võimalik ainult vea korral
-            return new LäbimänguLõpetamine(getSeis());
-        }
-        int praegunePikkus = this.getLahkmeJärgiJaotamisePiiristJärgnevIndeks();
+        int praeguseJaotamisePiir = getLahkmeJärgiJaotamisePiiristJärgnevIndeks();
         int oodatavPikkus = getSeis().getVastusePiir();
 
-        if(praegunePikkus == oodatavPikkus
-        || (praegunePikkus == getSeis().getTööalaAlgusIndeks() && praegunePikkus+1 == oodatavPikkus)) {
-            //kui lahkme järgi jagamine ei muutnud seisu ja läbimäng tuleks peale piiri nihutamist lõpetada
+        // kui jaotamise tulemuseks saadud piir eraldab nõutud hulgal elemente (või elemente ei vahetatud ja piir nihkub mõtteliselt edasi ja seejärel eraldab nõutud hulgal elemente)
+        if (praeguseJaotamisePiir == oodatavPikkus
+                || (praeguseJaotamisePiir + 1 == oodatavPikkus && praeguseJaotamisePiir == getSeis().getTööalaAlgusIndeks())) {
             return new LäbimänguLõpetamine(getSeis());
         }
-        if(praegunePikkus > oodatavPikkus) {
-            return new ValikuKiirmeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks(), praegunePikkus, getSeis());
+
+        // uus tööala valitakse vastavalt sellele, kas jaotamise tulemuseks saadud piir eraldab nõutust rohkem või vähem elemente
+        if (praeguseJaotamisePiir > oodatavPikkus) {
+            return new ValikuKiirmeetodiTööalaValimine(getSeis().getTööalaAlgusIndeks(), praeguseJaotamisePiir, getSeis());
+        } else {
+            if (praeguseJaotamisePiir == getSeis().getTööalaAlgusIndeks()) {// kui lahkme järgi jagamine ei muutnud seisu
+                return new ValikuKiirmeetodiTööalaValimine(praeguseJaotamisePiir + 1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
+            }
+            return new ValikuKiirmeetodiTööalaValimine(praeguseJaotamisePiir, getSeis().getTööalaleJärgnevIndeks(), getSeis());
         }
-        if(praegunePikkus == getSeis().getTööalaAlgusIndeks()) {//kui lahkme järgi jagamine ei muutnud seisu
-        return new ValikuKiirmeetodiTööalaValimine(praegunePikkus+1, getSeis().getTööalaleJärgnevIndeks(), getSeis());
-        }
-        return new ValikuKiirmeetodiTööalaValimine(praegunePikkus, getSeis().getTööalaleJärgnevIndeks(), getSeis());
+
     }
 
     @Override
-    public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(MassiiviTööriistad.kasTööalaValimata(getSeis())) {
+    public boolean läbimänguOnVõimalikJätkata() {
+        if (getSeis().kasTööalaValimata()) {
             return true;
         }
         Massiivioperatsioon järgmineÕigeKäik = järgmineÕigeKäik();
 
-        return (järgmineÕigeKäik instanceof LäbimänguLõpetamine
-                && ValikuKiirmeetodiTööriistad.kasVähimadElemendidOnEes(valikuKiirmeetodiMassiiviSeis))
-                || järgmineÕigeKäik.kasOnVõimalikLäbimänguJätkata();
+        return järgmineÕigeKäik.läbimänguOnVõimalikJätkata()
+                || (järgmineÕigeKäik instanceof LäbimänguLõpetamine && ValikuKiirmeetodiTööriistad.kasVähimadElemendidOnEes(valikuKiirmeetodiMassiiviSeis));
     }
 }

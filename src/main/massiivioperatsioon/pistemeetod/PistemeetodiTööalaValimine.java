@@ -1,14 +1,13 @@
 package main.massiivioperatsioon.pistemeetod;
 
 
-import main.massiiviSeis.MassiiviSeis;
 import main.MassiiviTööriistad;
+import main.massiiviSeis.MassiiviSeis;
 import main.massiivioperatsioon.LäbimänguLõpetamine;
 import main.massiivioperatsioon.Massiivioperatsioon;
 import main.massiivioperatsioon.TööalaValimine;
 
 public class PistemeetodiTööalaValimine extends TööalaValimine {
-
 
     public PistemeetodiTööalaValimine(int uusTööalaAlgus, int uusTööalaleJärgnevIndeks, MassiiviSeis massiivEnneOperatsiooni) {
         super(uusTööalaAlgus, uusTööalaleJärgnevIndeks, massiivEnneOperatsiooni);
@@ -16,31 +15,32 @@ public class PistemeetodiTööalaValimine extends TööalaValimine {
 
     @Override
     public Massiivioperatsioon järgmineÕigeKäik() {
-        if(this.getSeis().getTööalaleJärgnevIndeks() - this.getSeis().getTööalaAlgusIndeks() >= 2
-                && this.getSeis().getMassiiv()[this.getSeis().getTööalaleJärgnevIndeks()-1] <
-                this.getSeis().getMassiiv()[this.getSeis().getTööalaleJärgnevIndeks()-2]) {
+        MassiiviSeis seis = getSeis();
+        if (seis.getTööalaleJärgnevIndeks() - seis.getTööalaAlgusIndeks() >= 2
+                && seis.getMassiiv()[seis.getTööalaleJärgnevIndeks() - 1] <
+                seis.getMassiiv()[seis.getTööalaleJärgnevIndeks() - 2]) {
 
-            int elemendiIndeks = this.getSeis().getTööalaleJärgnevIndeks()-1;
-            int pistetavNumber = this.getSeis().getMassiiv()[elemendiIndeks];
+            int elemendiIndeks = seis.getTööalaleJärgnevIndeks() - 1;
+            int pistetavNumber = seis.getMassiiv()[elemendiIndeks];
 
-            while(elemendiIndeks > this.getSeis().getTööalaAlgusIndeks() &&
-                    this.getSeis().getMassiiv()[elemendiIndeks-1] > pistetavNumber) {
+            while (elemendiIndeks > seis.getTööalaAlgusIndeks() &&
+                    seis.getMassiiv()[elemendiIndeks - 1] > pistetavNumber) {
                 elemendiIndeks--;
             }
-            return new PistemeetodiPiste(this.getSeis().getTööalaleJärgnevIndeks()-1, elemendiIndeks, this.getSeis());
+            return new PistemeetodiPiste(seis.getTööalaleJärgnevIndeks() - 1, elemendiIndeks, seis);
         }
-        if(this.getSeis().getTööalaleJärgnevIndeks() == this.getSeis().getMassiiv().length) {
-            return new LäbimänguLõpetamine(this.getSeis());
+        if (seis.getTööalaleJärgnevIndeks() == seis.getMassiiv().length) {
+            return new LäbimänguLõpetamine(seis);
         }
-        return new PistemeetodiTööalaValimine(this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks()+1, this.getSeis());
+        return new PistemeetodiTööalaValimine(seis.getTööalaAlgusIndeks(), seis.getTööalaleJärgnevIndeks() + 1, seis);
     }
 
     @Override
-    public boolean kasOnVõimalikLäbimänguJätkata() {
-        if(MassiiviTööriistad.esinevadValedElemendidEnneIndeksit(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks())) {
+    public boolean läbimänguOnVõimalikJätkata() {
+        if (PistemeetodiTööriistad.valedElemendidEnneIndeksit(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks())) {
             return false;
         }
-        return MassiiviTööriistad.kasVahemikOnSorteeritud(this.getSeis().getMassiiv(), this.getSeis().getTööalaAlgusIndeks(), this.getSeis().getTööalaleJärgnevIndeks()-1);
+        return MassiiviTööriistad.kasVahemikOnSorteeritud(getSeis().getMassiiv(), getSeis().getTööalaAlgusIndeks(), getSeis().getTööalaleJärgnevIndeks() - 1);
     }
 
 
